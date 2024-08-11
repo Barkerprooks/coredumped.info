@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Triple Play Pay",
+        "time": ["May 2023", "May 2024"],
+        "location": "Remote",
+        "title": "Fullstack Software Developer",
+        "description": "At Triple Play Pay I was able to contribute to software for a wide array of technology and applications in the payments industry. From squashing user-facing bugs in Vue, to developing API endpoints for card present devices in Python, to creating mobile (iOS/Android) application libraries for use in React-Native."
+    },
+    {
+        "name": "GearMinds STEM Academy",
+        "location": "Frisco TX",
+        "title": "STEM Instructor",
+        "description": "An after school program focused on preparing kids of all ages for a job in tech. At GearMinds I tought everything from basic programming priciples using drag-and-drop languages, to showing how simple circuits worked with breadboards and MicroPython, to teaching advanced programming concepts and simple website construction with Python and JavaScript."
+    },
+    {
+        "name": "Exela Technologies",
+        "location": "Irving TX",
+        "title":"Embedded Developer",
+        "description": "At Exela I was tasked with writing code for a "
+    },
+    {
+        "name": "ThoughtSwift Medical Technologies",
+        "location": "Frisco TX",
+        "title": "Software Developer",
+        "description": ""
+    }
+]

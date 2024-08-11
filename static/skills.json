@@ -1,0 +1,121 @@
+[
+    {
+        "name": "Python 3",
+        "time": "8 years, 3 professional",
+        "subskills": [
+            "Django",
+            "Sanic",
+            "Flask",
+            "MicroPython",
+            "Raspberry Pi",
+            "Pandas",
+            "Matplotlib",
+            "PyGame"
+        ],
+        "jobs": [
+            {
+                "name": "Triple Play Pay",
+                "work": "Developed routes and extensions for a Sanic-based monolith. Designed a RESTful interface for Dejavoo card reader terminals. Implemented logic for parsing and decrypting MagTek card swipes and EMV payloads."
+            },
+            {
+                "name": "GearMinds STEM Academy",
+                "work": "Used Python and MicroPython as a tool for teaching middle school aged children about programming concepts, electronics and robotics."
+            },
+            {
+                "name": "Exela Technologies",
+                "work": "Research and development with MicroPython on an embedded device using an array of sensors including ultra-sonic (HC-SR04) and air quality (MQ135) sensors."
+            }
+        ],
+        "projects": [
+            {
+                "name": "First Lego Leauge Dashboard",
+                "link": "https://github.com/Barkerprooks/fll-dashboard",
+                "year": 2023
+            },
+            {
+                "name": "Simple File Browser",
+                "link": "https://github.com/Barkerprooks/simple-file-browser",
+                "year": 2023
+            },
+            {
+                "name": "UDP Tunnel",
+                "link": "https://github.com/Barkerprooks/udp-tunnel",
+                "year": 2022
+            },
+            {
+                "name": "Local Network Scanner",
+                "link": "https://github.com/Barkerprooks/scanlan",
+                "year": 2022
+            }
+        ]
+    },
+    {
+        "name": "JavaScript",
+        "time": "6 years, 2 professional",
+        "subskills": [
+            "Vue3",
+            "ReactJS",
+            "React Native",
+            "TypeScript",
+            "Svelte"
+        ],
+        "jobs": [
+            {
+                "name": "Triple Play Pay",
+                "work": "Fixed bugs for client reporting portal and end-user payment iFrame. Implemented frontend  for Apple Pay and accepting encrypted swipe card data from a physical device Developed a WooCommerce extension using WP-Blocks in ReactJS"
+            },
+            {
+                "name": "ThoughSwift",
+                "work": "Was able to leverage JavaScript to make the pages and medical forms more accesible"
+            }
+        ],
+        "projects": [
+            {
+                "name": "Simple File Browser",
+                "link": "https://github.com/Barkerprooks/simple-file-browser",
+                "year": 2023
+            }
+        ]
+    },
+    {
+        "name": "C",
+        "time": "6 years, 1 professional",
+        "subskills": [
+            "Linux",
+            "CMake",
+            "ESP-IDF",
+            "RP2040 (Raspberry Pi Pico SDK)"
+        ],
+        "jobs": [
+            {
+                "name": "Exela Technologies",
+                "work": "Used C with the Arduino IDE to develop and test firmware for ESP-32"
+            }
+        ],
+        "projects": [
+            {
+                "name": "Simple Tribute to John Horton Conway",
+                "link": "https://github.com/Barkerprooks/conways-game-of-life",
+                "year": 2020
+            }
+        ]
+    },
+    {
+        "name": "PHP",
+        "time": "4 years, 2 professional",
+        "subskills": [
+            "Wordpress",
+            "WooCommerce"
+        ],
+        "jobs": [
+            {
+                "name": "Triple Play Pay",
+                "work": "Developed and maintained a WooCommerce plugin for Triple Play Pay which allowed users to provide a customizable checkout experience using our services on their storefront"
+            },
+            {
+                "name": "ThoughtSwift",
+                "work": "Wrote server-side logic to dynamically create medical forms"
+            }
+        ]
+    }
+]
