@@ -15,6 +15,13 @@
             margin: 0;
         }
 
+        @media print {
+            h2:not(:first-child) {
+                padding-top: 24px;
+                break-before: page;
+            }
+        }
+
         #resume {
             font-family: Arial, sans-serif;
             min-height: 279.4mm;
@@ -125,7 +132,7 @@
         <main>
             <h2>Experience</h2>
             <ul>
-            {% for job in jobs %}
+            {% for job in experience %}
                 <li>
                     <h4>{{ job.name }}</h4> - 
                     <h5>{{ job.location }} | {{ job.title }}</h5>
@@ -164,10 +171,18 @@
             <h2>Education</h2>
             <ul>
                 <li>
-                    <b>University of North Texas</b>
+                    <h4>University of North Texas</h4>
+                    <h5> - Graduated 2024</h5>
                     <ul>
                         <li><pre>[ENBS-CSCI]</pre> - <i>B.S. in Computer Science - 2024</i></li>
                         <li><pre>[UACT-SCTY]</pre> - <i>Undergraduate Certificate in Security - 2024</i></li>
+                    </ul>
+                </li>
+                <li>
+                    <h4>McKinney High School</h4>
+                    <h5>Graduated 2016</h5>
+                    <ul>
+                        <li><i>High School Diploma - 2016</i></li>
                     </ul>
                 </li>
             </ul>

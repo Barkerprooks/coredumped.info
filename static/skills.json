@@ -33,11 +33,6 @@
                 "year": 2023
             },
             {
-                "name": "Simple File Browser",
-                "link": "https://github.com/Barkerprooks/simple-file-browser",
-                "year": 2023
-            },
-            {
                 "name": "UDP Tunnel",
                 "link": "https://github.com/Barkerprooks/udp-tunnel",
                 "year": 2022
@@ -53,6 +48,7 @@
         "name": "JavaScript",
         "time": "6 years, 2 professional",
         "subskills": [
+            "Vanilla",
             "Vue3",
             "ReactJS",
             "React Native",
@@ -62,7 +58,11 @@
         "jobs": [
             {
                 "name": "Triple Play Pay",
-                "work": "Fixed bugs for client reporting portal and end-user payment iFrame. Implemented frontend  for Apple Pay and accepting encrypted swipe card data from a physical device Developed a WooCommerce extension using WP-Blocks in ReactJS"
+                "work": "Fixed bugs for client reporting portal and end-user payment iFrame. Implemented frontend for Apple Pay and accepting encrypted swipe card data from a physical device. Developed a WooCommerce extension using WP-Blocks in ReactJS. Contributed to cross-platform library for React-Native."
+            },
+            {
+                "name": "GearMinds STEM Academy",
+                "work": "Used JavaScript to teach children about dynamic content in web pages"
             },
             {
                 "name": "ThoughtSwift",
@@ -70,6 +70,11 @@
             }
         ],
         "projects": [
+            {
+                "name": "Triple Play Pay Frontend API Test Panel",
+                "link": "https://github.com/Barkerprooks/tpp-qa",
+                "year": 2023
+            },
             {
                 "name": "Simple File Browser",
                 "link": "https://github.com/Barkerprooks/simple-file-browser",
@@ -94,7 +99,7 @@
         ],
         "projects": [
             {
-                "name": "Simple Tribute to John Horton Conway",
+                "name": "Small Tribute to John Horton Conway",
                 "link": "https://github.com/Barkerprooks/conways-game-of-life",
                 "year": 2020
             }
@@ -115,6 +120,43 @@
             {
                 "name": "ThoughtSwift",
                 "work": "Wrote server-side logic to dynamically create medical forms"
+            }
+        ],
+        "projects": [
+            {
+                "name": "Triple Play Pay WooCommerce Plugin",
+                "link": "https://github.com/TriplePlayPay/woocommerce-gateway-tripleplaypay",
+                "year": 2023
+            }
+        ]
+    },
+    {
+        "name": "Java",
+        "time": "6 years, 1 professional",
+        "subskills": [
+            "Android Development"
+        ],
+        "jobs": [
+            {
+                "name": "Triple Play Pay",
+                "work": "Wrote a low level API/library for Android so that integrators could interface their application with a MagTek card reader device."
+            },
+            {
+                "name": "GearMinds STEM Academy",
+                "work": "Used Java as a tool to teach children about strongly typed languages"
+            }
+        ]
+    },
+    {
+        "name": "Swift",
+        "time": "1 year, 1 professional",
+        "subskills": [
+            "iOS Development"
+        ],
+        "jobs": [
+            {
+                "name": "Triple Play Pay",
+                "work": "Wrote a low level API/library for iOS so that integrators could interface their application with a MagTek card reader device."
             }
         ]
     }

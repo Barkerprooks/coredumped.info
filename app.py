@@ -25,5 +25,5 @@ def resume():
         'resume.j2',
         page='RESUME',
         skills=json.load(open('static/skills.json')),
-        jobs=json.load(open('static/jobs.json'))
+        experience=json.load(open('static/experience.json'))
     )
