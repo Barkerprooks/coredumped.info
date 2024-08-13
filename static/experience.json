@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Triple Play Pay",
+        "time": ["May 2023", "May 2024"],
+        "location": "Remote",
+        "title": "Fullstack Software Developer",
+        "description": "A payments proessing platform, akin to Stripe. I was able to contribute to software for a wide array of technologies and applications in the payments industry. From squashing user-facing bugs in Vue, to developing API endpoints for card present devices in Python, to creating mobile (iOS/Android) application libraries for use in React-Native. I gained a lot of insight about software integration from the perspective of an integrator, and an API designer."
+    },
+    {
+        "name": "GearMinds STEM Academy",
+        "time": ["Aug 2021", "Present"],
+        "location": "Frisco TX",
+        "title": "STEM Instructor",
+        "description": "An after school program focused on preparing kids of all ages for a job in tech. At GearMinds I tought everything from basic programming priciples using drag-and-drop languages, to showing how simple circuits worked with breadboards and MicroPython, to teaching advanced programming concepts and simple website construction with Python and JavaScript."
+    },
+    {
+        "name": "Exela Technologies",
+        "time": ["Aug 2019", "Jan 2020"],
+        "location": "Irving TX",
+        "title":"Embedded Developer",
+        "description": "A company specializing in automation. I was tasked with writing firmware for an in-house project using ESP32 microcontrollers. We leveraged the ESP-IDF as well as MicroPython to prototype the device. The device interfaced with an ultrasonic sensor (HC-SR04) and air quality (MQ135) sensor in order to operate with its intended purpose."
+    },
+    {
+        "name": "ThoughtSwift Medical Technologies",
+        "time": ["Aug 2018", "May 2019"],
+        "location": "Frisco TX",
+        "title": "Software Developer",
+        "description": "A service provider for medical practices. I designed and maintained a multitude of php forms that replaced pen and paper at the doctors office. I also implemented the logic needed to provide the forms to the intended recepients, and used JS/CSS to design the forms and make them accessible."
+    }
+]
