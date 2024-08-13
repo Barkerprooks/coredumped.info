@@ -89,15 +89,6 @@
             display: inline;
         }
 
-        #resume-links {
-            display: flex;
-            flex-direction: column;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: 4px;
-            font-size: 9pt;
-        }
-
         #resume p {
             font-size: 9pt;
             padding: 4px;
@@ -106,19 +97,28 @@
         #resume ul ul {
             font-size: 9pt;
         }
+
+        #resume-links {
+            display: flex;
+            flex-direction: column;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: 4px;
+            font-size: 9pt;
+        }
     </style>
 
     <div id="resume">
         <header>
             <h1>Jon Parker Brooks</h1>
-            <h3>Fullstack Software Development - Security - Robotics</h3>
+            <h3>Fullstack Software Development - Embedded Firmware - Security</h3>
             <div id="resume-links">
-                <pre><a href="tel:2146699320">Call|Text</a>    - (214)669-9320</pre>
-                <pre><a href="mailto:jonparkerbrooks@gmail.com">Email</a>        - jonparkerbrooks@gmail.com</pre>
+                <pre><a href="tel:2146699320">Call / Text</a> - (214)669-9320</pre>
+                <pre>      <a href="mailto:jonparkerbrooks@gmail.com">Email</a> - jonparkerbrooks@gmail.com</pre>
                 <hr />
-                <pre><a target="_blank" href="https://app.hackthebox.com/profile/129223">HackTheBox</a>   - https://app.hackthebox.com/profile/129223</pre>
-                <pre><a target="_blank" href="https://www.linkedin.com/in/parker-brooks-18160013a">LinkedIn</a>     - https://www.linkedin.com/in/parker-brooks-18160013a</pre>
-                <pre><a target="_blank" href="https://github.com/BarkerProoks">GitHub</a>       - https://github.com/BarkerProoks</pre>
+                <pre>  <a target="_blank" href="https://app.hackthebox.com/profile/129223">HackTheBox</a> - https://app.hackthebox.com/profile/129223</pre>
+                <pre>    <a target="_blank" href="https://www.linkedin.com/in/parker-brooks-18160013a">LinkedIn</a> - https://www.linkedin.com/in/parker-brooks-18160013a</pre>
+                <pre>      <a target="_blank" href="https://github.com/BarkerProoks">GitHub</a> - https://github.com/BarkerProoks</pre>
             </div>
         </header>
 
@@ -140,7 +140,7 @@
             {% for skill in skills %}
                 <li>
                     <h4>{{ skill.name }}</h4> - 
-                    <h5>{{ skill.time }} - {{ ', '.join(skill.subskills) }}</h5>
+                    <h5>{{ skill.time }} - <i>{{ ', '.join(skill.subskills) }}</i></h5>
                     {% if skill.jobs | length > 0 %}
                         <h6>Work Experience</h6>
                         <ul>
