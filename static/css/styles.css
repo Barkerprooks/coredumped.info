@@ -63,3 +63,23 @@ button:hover {
 .disabled-nav:hover {
     color: lightgrey;
 }
+
+@media screen and (max-width: 560px) {
+    nav {
+        text-align: right;
+    }
+
+    #resume {
+        max-width: 90vw !important;
+        padding: 16px;
+        overflow-x: scroll;
+    }
+
+    #resume pre {
+        font-size: 4pt;
+    }
+
+    #resume pre a {
+        font-size: 8pt;
+    }
+}
