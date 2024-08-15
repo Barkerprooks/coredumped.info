@@ -159,5 +159,22 @@
                 "work": "Wrote a low level API/library for iOS so that integrators could interface their application with a MagTek card reader device."
             }
         ]
+    },
+    {
+        "name": "AWS",
+        "time": "1 year, 1 professional",
+        "subskills": [
+            "awscli",
+            "Lambda",
+            "EC2",
+            "CloudWatch",
+            "RDS"
+        ],
+        "jobs": [
+            {
+                "name": "Triple Play Pay",
+                "work": "Assited in creating and maintaining AWS services like CloudWatch and RDS."
+            }
+        ]
     }
 ]
