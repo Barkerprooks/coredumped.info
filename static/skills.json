@@ -161,6 +161,22 @@
         ]
     },
     {
+        "name": "Linux",
+        "time": "8 years",
+        "subskills": [
+            "Shell scripting (bash & fish)",
+            "System administration",
+            "Raspberry Pi"
+        ],
+        "projects": [
+            {
+                "name": "Personal website (is hosted on an Arch Linux server using WSGI and Nginx)",
+                "link": "https://github.com/Barkerprooks/resume-website",
+                "year": 2024
+            }
+        ]
+    },
+    {
         "name": "AWS",
         "time": "1 year, 1 professional",
         "subskills": [
