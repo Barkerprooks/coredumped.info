@@ -149,7 +149,8 @@
         "projects": [
             {
                 "name": "Triple Play Pay MagTek SDK (Android)",
-                "work": "https://github.com/TriplePlayPay/TPP-Android-MagTekSDK"
+                "link": "https://github.com/TriplePlayPay/TPP-Android-MagTekSDK",
+                "year": 2024
             }
         ]
     },
@@ -168,7 +169,8 @@
         "projects": [
             {
                 "name": "Triple Play Pay MagTek SDK (iOS)",
-                "work": "https://github.com/TriplePlayPay/TPP-iOS-MagTekSDK"
+                "link": "https://github.com/TriplePlayPay/TPP-iOS-MagTekSDK",
+                "year": 2024
             }
         ]
     },
