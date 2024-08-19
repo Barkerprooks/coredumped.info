@@ -158,7 +158,7 @@
                         </ul>
                     {% endif %}
                     {% if skill.projects | length > 0 %}
-                        <h6>Personal Projects</h6>
+                        <h6>Projects</h6>
                         <ul>
                         {% for project in skill.projects %}
                             <li><a href="{{ project.link }}">{{ project.name }}</a> ({{ project.year }}): <pre>[{{ project.link }}]</pre></li>

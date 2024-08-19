@@ -145,6 +145,12 @@
                 "name": "GearMinds STEM Academy",
                 "work": "Used Java as a tool to teach children about strongly typed languages"
             }
+        ],
+        "projects": [
+            {
+                "name": "Triple Play Pay MagTek SDK (Android)",
+                "work": "https://github.com/TriplePlayPay/TPP-Android-MagTekSDK"
+            }
         ]
     },
     {
@@ -158,15 +164,24 @@
                 "name": "Triple Play Pay",
                 "work": "Wrote a low level API/library for iOS so that integrators could interface their application with a MagTek card reader device."
             }
+        ],
+        "projects": [
+            {
+                "name": "Triple Play Pay MagTek SDK (iOS)",
+                "work": "https://github.com/TriplePlayPay/TPP-iOS-MagTekSDK"
+            }
         ]
     },
     {
         "name": "Linux",
         "time": "8 years",
         "subskills": [
+            "Automation",
             "Shell scripting (bash & fish)",
             "System administration",
-            "Raspberry Pi"
+            "Raspberry Pi",
+            "Ubuntu",
+            "ArchLinux"
         ],
         "projects": [
             {
