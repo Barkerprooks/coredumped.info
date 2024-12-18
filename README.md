@@ -6,7 +6,7 @@ No one will need to run this, I don't even need these notes... But in the name o
 ### Running locally
 ```
 # navigate to the root directory
-cd resume-website
+cd coredumped.info
 
 # create virtualenv and activate it
 python -m venv venv && source ./venv/bin/activate
