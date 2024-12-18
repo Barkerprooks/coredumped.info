@@ -14,6 +14,10 @@
         ],
         "jobs": [
             {
+                "name": "Fusion Auto Finance",
+                "work": "Worked on company-wide projects utilizing backend technologies such as Django, developed internal libraries for extended tooling, solved backend bugs."
+            },
+            {
                 "name": "Triple Play Pay",
                 "work": "Developed routes and extensions for a Sanic-based monolith. Designed a RESTful interface for Dejavoo card reader terminals. Implemented logic for parsing and decrypting MagTek card swipes and EMV payloads."
             },
@@ -56,6 +60,10 @@
             "Svelte"
         ],
         "jobs": [
+            {
+                "name": "Fusion Auto Finance",
+                "work": "Implemented web page designs in HTML/CSS with TailwindCSS and vanilla JavaScript"
+            },
             {
                 "name": "Triple Play Pay",
                 "work": "Fixed bugs for client reporting portal and end-user payment iFrame. Implemented frontend for Apple Pay and accepting encrypted swipe card data from a physical device. Developed a WooCommerce extension using WP-Blocks in ReactJS. Contributed to cross-platform library for React-Native."

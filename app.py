@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 import json
 
-
 def create_app():
 
     app = Flask(__name__)
@@ -18,6 +17,9 @@ def create_app():
 
     @app.route('/blog')
     def blog():
+
+        
+
         return render_template('blog.j2', page='BLOG')
 
 

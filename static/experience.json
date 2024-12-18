@@ -1,5 +1,12 @@
 [
     {
+        "name": "Fusion Auto Finance",
+        "time": ["September 2024", "Today"],
+        "location": "Bedford TX",
+        "title": "Fullstack Software Engineer",
+        "description": "An Auto Financing Company. I was on a small development team working with Django applications "
+    },
+    {
         "name": "Triple Play Pay",
         "time": ["May 2023", "May 2024"],
         "location": "Remote",
@@ -8,7 +15,7 @@
     },
     {
         "name": "GearMinds STEM Academy",
-        "time": ["Aug 2021", "Present"],
+        "time": ["Aug 2021", "Today"],
         "location": "Frisco TX",
         "title": "STEM Instructor",
         "description": "An after school program focused on preparing kids of all ages for a job in tech. At GearMinds I tought everything from basic programming priciples using drag-and-drop languages, to showing how simple circuits worked with breadboards and MicroPython, to teaching advanced programming concepts and simple website construction with Python and JavaScript."
