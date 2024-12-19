@@ -1,8 +1,12 @@
 {% extends "base.j2" %}
-{% block content %}
 
-<div id="blog-post">
+{% block styles %}
+<link rel="stylesheet" href="/static/css/monokai.css" />
+<link rel="stylesheet" href="/static/css/post.css" />
+{% endblock %}
+
+{% block content %}
+<div id="post">
 {{ markdown }}
 </div>
-
 {% endblock %}

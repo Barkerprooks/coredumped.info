@@ -1,0 +1,56 @@
+#post {
+    margin: 5% 25%;
+}
+
+#post p {
+    margin: 8px 16px;
+}
+
+#post code {
+    margin: 0 4px;
+}
+
+#post h1, h3 {
+    margin: 24px 0 24px 0;
+    text-align: center;
+}
+
+#post h2, h4, h5, h6 {
+    margin: 42px 0 24px 0;
+}
+
+#post pre { 
+    background: #1e1e1e;
+    border-radius: 10px;
+    overflow: scroll;
+    margin: 5% auto;
+    max-width: 60%;
+    padding: 8px;
+}
+
+@media screen and (max-width: 1536px) {
+    #post {
+        margin: 5% 20%;
+    }
+    #post pre {
+        max-width: 70%;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    #post {
+        margin: 5% 10%;
+    }
+    #post pre {
+        max-width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #post {
+        margin: 10% 0%;
+    }
+    #post pre {
+        max-width: 90%;
+    }
+}

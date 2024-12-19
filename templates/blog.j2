@@ -1,17 +1,20 @@
 {% extends 'base.j2' %}
-{% block content %}
+{% block styles %}
+<link rel="stylesheet" href="/static/css/blog.css" />
+{% endblock %}
 
-<div id="blog-posts">
-    <div id="blog-posts-header">
-        <h1>Blog Posts</h1>
-    </div>
-    <ol id="blog-posts-list">
-    {% for link, title in posts.items() %}
+{% block content %}
+<div id="blog">
+    <ol id="blog-posts">
+    {% for post, title in posts.items() %}
         <li class="blog-post-item">
-            <p>{{title}}</p>
-            <a href="/blog/{{link}}" style="margin-top: 15px">Read Post</a>
-            <span>-</span>
-            <a style="cursor: pointer" onclick="navigator.clipboard.writeText('https://coredumped.info/blog/{{link}}'); this.innerText = 'Copied'">Copy Link</a>
+            {{title}}
+            <div>posted on {{ post[4:] + '/' + post[2:4] + '/' + post[:2] }}</div>
+            <div class="blog-post-link">
+                <button class="copy-link-button" data-post="{{post}}">copy link</button>
+                <span>-</span>
+                <a href="/blog/{{post}}">view post</a>
+            </div>
         </li>
     {% endfor %}
     </ol>
@@ -19,5 +22,5 @@
     <p style="float: right; margin: 8px">blog posts: {{ posts | length }}</p>
 </div>
 
-
+<script src="/static/js/blog.js"></script>
 {% endblock %}

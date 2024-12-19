@@ -1,0 +1,43 @@
+h1 {
+    font-size: 16pt;
+    margin-bottom: 4px;
+}
+
+#blog {
+    padding: 16px;
+    margin: 16px 25%;
+    overflow: hidden;
+}
+
+#blog-title {
+    color: #f6f5e0;
+}
+
+#blog-posts {
+    margin: 16px 0;
+    list-style: none;
+}
+
+.blog-post-item {
+    padding: 8px;
+}
+
+.blog-post-link {
+    margin: 12px 0;
+    text-align: right;
+}
+
+@media screen and (max-width: 1280px) {
+    #post {
+        margin: 5% 10%;
+    }
+    #post pre {
+        max-width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #blog {
+        margin: 16px 0;
+    }
+}
