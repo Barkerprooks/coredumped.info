@@ -24,7 +24,7 @@
     border-radius: 10px;
     overflow: scroll;
     margin: 5% auto;
-    max-width: 60%;
+    width: 500px;
     padding: 8px;
 }
 
@@ -32,17 +32,11 @@
     #post {
         margin: 5% 20%;
     }
-    #post pre {
-        max-width: 70%;
-    }
 }
 
 @media screen and (max-width: 1280px) {
     #post {
         margin: 5% 10%;
-    }
-    #post pre {
-        max-width: 80%;
     }
 }
 
@@ -51,6 +45,6 @@
         margin: 10% 0%;
     }
     #post pre {
-        max-width: 90%;
+        width: 300px;
     }
 }
