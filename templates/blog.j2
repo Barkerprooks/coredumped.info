@@ -9,7 +9,7 @@
     {% for post, title in posts.items() %}
         <li class="blog-post-item">
             {{title}}
-            <div>posted on {{ post[4:] + '/' + post[2:4] + '/' + post[:2] }}</div>
+            <div>posted on {{ post[2:4] + '/' + post[4:] + '/' + post[:2] }}</div>
             <div class="blog-post-link">
                 <button class="copy-link-button" data-post="{{post}}">copy link</button>
                 <span>-</span>
