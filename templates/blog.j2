@@ -6,14 +6,14 @@
 {% block content %}
 <div id="blog">
     <ol id="blog-posts">
-    {% for post, title in posts.items() %}
+    {% for post, (title, date) in posts.items() %}
         <li class="blog-post-item">
             {{title}}
-            <div>posted on {{ post[2:4] + '/' + post[4:] + '/' + post[:2] }}</div>
+            <p class="blog-post-date">created: {{ date }}, updated {{ modified }}</p>
             <div class="blog-post-link">
-                <button class="copy-link-button" data-post="{{post}}">copy link</button>
+                <a href="/blog/{{post}}">view</a>
                 <span>-</span>
-                <a href="/blog/{{post}}">view post</a>
+                <button class="copy-link-button" data-post="{{post}}">copy</button>
             </div>
         </li>
     {% endfor %}

@@ -42,3 +42,8 @@ body {
     color: #f6f5ae;
     font-family: Arial, sans-serif;
 }
+
+code {
+    font-size: 11pt;
+    color: lightskyblue;
+}

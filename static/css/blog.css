@@ -18,6 +18,10 @@ h1 {
     list-style: none;
 }
 
+.blog-post-date {
+    text-align: right;
+}
+
 .blog-post-item {
     padding: 8px;
 }

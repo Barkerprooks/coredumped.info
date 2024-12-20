@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             buttons.forEach(button => button.innerHTML = 'copy link');
             navigator.clipboard.writeText(`https://coredumped.info/blog/${button.dataset.post}`);
-            button.innerHTML = 'copied!';
+            button.innerHTML = 'copied';
         });
     });
 });

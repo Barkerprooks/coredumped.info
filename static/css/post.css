@@ -1,3 +1,7 @@
+#post-date {
+    margin: 48px 25%;
+}
+
 #post {
     margin: 5% 25%;
 }
@@ -6,41 +10,52 @@
     margin: 8px 16px;
 }
 
-#post code {
-    margin: 0 4px;
-}
+#post 
 
 #post h1, h3 {
-    margin: 24px 0 24px 0;
+    margin: 0 0 24px 0;
     text-align: center;
 }
 
 #post h2, h4, h5, h6 {
-    margin: 42px 16px 24px 16px;
+    margin: 48px 16px 24px 16px;
+}
+
+#post h5 {
+    text-align: right;
 }
 
 #post pre { 
     background: #1e1e1e;
     border-radius: 10px;
     overflow: scroll;
-    margin: 5% auto;
-    width: 500px;
-    padding: 8px;
+    margin: 24px auto;
+    width: 480px;
+    padding: 8px 16px;
 }
 
 @media screen and (max-width: 1536px) {
+    #post-date {
+        margin: 48px 20%;
+    }    
     #post {
         margin: 5% 20%;
     }
 }
 
 @media screen and (max-width: 1280px) {
+    #post-date {
+        margin: 48px 10%;
+    }
     #post {
         margin: 5% 10%;
     }
 }
 
 @media screen and (max-width: 768px) {
+    #post-date {
+        margin: 48px 0;
+    }
     #post {
         margin: 10% 0%;
     }
