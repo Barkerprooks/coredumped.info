@@ -46,3 +46,7 @@ code {
     font-size: 11pt;
     color: lightskyblue;
 }
+
+::-webkit-scrollbar { 
+    display: none; 
+}

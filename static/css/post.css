@@ -37,9 +37,9 @@
 
 #post .code pre { 
     background: #2e2e2e;
-    overflow: scroll;
     padding: 8px;
     border-radius: 0 5px 5px 0;
+    overflow-x: scroll;
 }
 
 @media screen and (max-width: 1536px) {
