@@ -33,6 +33,7 @@
     padding: 8px 2px;
     color: grey;
     border-radius: 5px 0 0 5px;
+    overflow-x: scroll;
 }
 
 #post .code pre { 
