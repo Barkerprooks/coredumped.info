@@ -29,6 +29,7 @@
 }
 
 #post .linenos pre {
+    line-height: 125%;
     background: #414141;
     padding: 8px 2px;
     color: grey;
