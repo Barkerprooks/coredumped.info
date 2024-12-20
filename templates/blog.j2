@@ -9,7 +9,6 @@
     {% for post, (title, date) in posts.items() %}
         <li class="blog-post-item">
             {{title}}
-            <p class="blog-post-date">created: {{ date }}, updated {{ modified }}</p>
             <div class="blog-post-link">
                 <a href="/blog/{{post}}">view</a>
                 <span>-</span>

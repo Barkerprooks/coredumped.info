@@ -25,7 +25,11 @@ def load_blog_post(date: int):
     filepath = f"static/blog/{date}.md"
     with open(filepath) as file:
         return (
-            markdown.markdown(file.read(), extensions=["codehilite"]),
+            markdown.markdown(
+                file.read(),
+                extensions=["codehilite"],
+                extension_configs={"codehilite": {"linenums": True}},
+            ),
             datetime.datetime.fromtimestamp(os.stat(filepath).st_mtime),
         )
 

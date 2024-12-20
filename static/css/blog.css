@@ -3,6 +3,10 @@ h1 {
     margin-bottom: 4px;
 }
 
+h5 {
+    text-align: right;
+}
+
 #blog {
     padding: 16px;
     margin: 16px 25%;
@@ -16,10 +20,6 @@ h1 {
 #blog-posts {
     margin: 16px 0;
     list-style: none;
-}
-
-.blog-post-date {
-    text-align: right;
 }
 
 .blog-post-item {

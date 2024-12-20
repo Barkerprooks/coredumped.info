@@ -10,8 +10,6 @@
     margin: 8px 16px;
 }
 
-#post 
-
 #post h1, h3 {
     margin: 0 0 24px 0;
     text-align: center;
@@ -25,19 +23,29 @@
     text-align: right;
 }
 
-#post pre { 
-    background: #1e1e1e;
-    border-radius: 10px;
+#post .codehilitetable {
+    border-collapse: collapse;
+    margin: 16px auto;
+}
+
+#post .linenos pre {
+    background: #414141;
+    padding: 8px 2px;
+    color: grey;
+    border-radius: 5px 0 0 5px;
+}
+
+#post .code pre { 
+    background: #2e2e2e;
     overflow: scroll;
-    margin: 24px auto;
-    width: 480px;
-    padding: 8px 16px;
+    padding: 8px;
+    border-radius: 0 5px 5px 0;
 }
 
 @media screen and (max-width: 1536px) {
     #post-date {
         margin: 48px 20%;
-    }    
+    } 
     #post {
         margin: 5% 20%;
     }
@@ -59,7 +67,7 @@
     #post {
         margin: 10% 0%;
     }
-    #post pre {
+    #post .code pre {
         width: 300px;
     }
 }
