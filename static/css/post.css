@@ -29,12 +29,14 @@
 }
 
 #post .linenos pre {
+    font-size: 11pt;
     background: #414141;
     color: grey;
     border-radius: 5px 0 0 5px;
 }
 
-#post .code pre { 
+#post .code pre {
+    font-size: 11pt;
     background: #2e2e2e;
     border-radius: 0 5px 5px 0;
     overflow-x: scroll;
