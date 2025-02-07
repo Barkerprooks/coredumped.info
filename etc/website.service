@@ -1,0 +1,13 @@
+[Unit]
+Description=my personal website
+After=network.target
+
+[Service]
+Type=simple
+User=parker
+WorkingDirectory=$PATH
+ExecStart=$PATH/env/bin/uwsgi --http 127.0.0.1:5000 --master -p 4 -w wsgi:app
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
