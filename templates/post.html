@@ -1,4 +1,4 @@
-{% extends "base.j2" %}
+{% extends "base.html" %}
 
 {% block styles %}
 <link rel="stylesheet" href="/static/css/monokai.css" />
@@ -7,6 +7,6 @@
 
 {% block content %}
 <div id="post">
-{{ markdown }}
+{{ markdown | safe }}
 </div>
 {% endblock %}

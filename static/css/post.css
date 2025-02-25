@@ -19,10 +19,6 @@
     margin: 48px 16px 24px 16px;
 }
 
-#post h5 {
-    text-align: right;
-}
-
 #post .codehilitetable {
     border-collapse: collapse;
     margin: 16px auto;
@@ -42,6 +38,7 @@
     padding: 8px;
     border-radius: 0 5px 5px 0;
     overflow-x: scroll;
+    width: 50vw;
 }
 
 @media screen and (max-width: 1536px) {

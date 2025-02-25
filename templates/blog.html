@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block styles %}
+<link rel="stylesheet" href="/static/css/blog.css" />
+{% endblock %}
+
+{% block content %}
+<div id="blog">
+    <ol id="blog-posts">
+    {% for post in posts %}
+        <li class="blog-post-item">
+            {{ post }}
+            <div class="blog-post-link">
+                <a href="/blog/{{post}}">view</a>
+                <span>-</span>
+                <button class="copy-link-button" data-post="{{post}}">copy</button>
+            </div>
+        </li>
+    {% endfor %}
+    </ol>
+    <hr>
+    <p style="float: right; margin: 8px">blog posts: {{ posts | length }}</p>
+</div>
+
+<script src="/static/js/blog.js"></script>
+{% endblock %}

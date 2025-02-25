@@ -6,11 +6,7 @@
             "Django",
             "Sanic",
             "Flask",
-            "MicroPython",
-            "Raspberry Pi",
-            "Pandas",
-            "Matplotlib",
-            "PyGame"
+            "MicroPython"
         ],
         "jobs": [
             {
