@@ -17,8 +17,9 @@ def human_readable_post_date(date: int):
 
 
 def load_blog_post_title(date: int):
-    with open(f"static/blog/{date}.md") as file:
-        return markdown.markdown(file.readline() + file.readline())
+    if os.path.isdir():
+        with open(f"static/blog/{date}.md") as file:
+            return markdown.markdown(file.readline() + file.readline())
 
 
 def load_blog_post(date: int):
