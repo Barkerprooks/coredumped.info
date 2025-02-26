@@ -3,25 +3,45 @@
 }
 
 #post {
-    margin: 5% 25%;
+    margin: 5% 30%;
 }
 
 #post p {
-    margin: 8px 16px;
+    margin: 16px 8px;
+    text-align: justify;
 }
 
 #post h1, h3 {
     margin: 0 0 24px 0;
-    text-align: center;
 }
 
 #post h2, h4, h5, h6 {
-    margin: 48px 16px 24px 16px;
+    margin: 42px 0 0  0;
+    /* margin: 48px 16px 24px 16px; */
+}
+
+#post ul {
+    margin: 16px 32px;
+}
+
+#post img {
+    width: 100%;
+    border-radius: 5px;
 }
 
 #post .codehilitetable {
     border-collapse: collapse;
     margin: 16px auto;
+}
+
+#post .codehilite pre {
+    background-color: black;
+    background: #2e2e2e;
+    overflow-x: scroll;
+    border-radius: 5px 5px 5px 5px;
+    padding: 8px;
+    font-size: 11pt;
+    margin: 24px 0;
 }
 
 #post .linenos pre {
@@ -30,15 +50,6 @@
     padding: 8px 2px;
     color: grey;
     border-radius: 5px 0 0 5px;
-}
-
-#post .code pre { 
-    font-size: 11pt;
-    background: #2e2e2e;
-    padding: 8px;
-    border-radius: 0 5px 5px 0;
-    overflow-x: scroll;
-    width: 50vw;
 }
 
 @media screen and (max-width: 1536px) {

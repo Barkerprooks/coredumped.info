@@ -10,14 +10,14 @@ a, button {
     font-size: 11pt;
     text-decoration: none;
     transition: 0.2s;
-    color: #f6f5e0;
+    color: white;
     background: none;
     cursor: pointer;
     border: none;
 }
 
 a:hover, button:hover {
-    color: #f6f5ae;
+    color: #e7e2c9;
 }
 
 nav {
@@ -35,16 +35,17 @@ nav div a {
 }
 
 body {
-    background: #565554;
+    background: rgb(89,107,100);
+    background: linear-gradient(180deg, rgba(89,107,100,1) 25%, rgba(80,88,85,1) 75%);
     min-height: 100vh;
     padding: 16px 16px;
-    color: #f6f5ae;
+    color: #e7e2c9;
     font-family: Arial, sans-serif;
 }
 
 code {
     font-size: 11pt;
-    color: lightskyblue;
+    color: #dde1ff;
 }
 
 ::-webkit-scrollbar { 

@@ -27,8 +27,18 @@ h5 {
 }
 
 .blog-post-link {
-    margin: 12px 0;
     text-align: right;
+}
+
+.blog-post-link a {
+    display: inline-block;
+    border: 1px solid grey;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.blog-post-link a:hover {
+    background-color: rgba(25, 25, 25, 0.3);
 }
 
 @media screen and (max-width: 1280px) {

@@ -6,17 +6,23 @@
 {% block content %}
 <div id="blog">
     <ol id="blog-posts">
-    {% for post, (subtitle, group) in posts.items() %}
+    {% for post, (title, group) in posts.items() %}
         <li class="blog-post-item">
-            <h1>{{ group }} / {{ post }}</h1>
+            <h1><a href="/blog/ctfs/{{group}}/{{post}}">{{ title | safe }}</a></h1>
+            {% if group == 'htb' %}
+            <h4>Hack the Box</h4>
+            {% else %}
+            <h4>{{ group | title }}</h4>
+            {% endif %}
             <div class="blog-post-link">
-                <a href="/blog/ctfs/{{ group }}/{{ post }}">view</a>
+                <a href="/blog/ctfs/{{group}}/{{post}}">Read Post</a>
+                <a class="copy-link-button" data-post="blog/ctfs/{{group}}/{{post}}">Copy Link</a>
             </div>
         </li>
+        <br />
     {% endfor %}
     </ol>
-    <hr>
-    <p style="float: right; margin: 8px">blog posts: {{ posts | length }}</p>
+    <p style="float: right; margin: 8px">posts: {{ posts | length }}</p>
 </div>
 
 <script src="/static/js/blog.js"></script>

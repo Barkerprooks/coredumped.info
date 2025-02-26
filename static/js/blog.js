@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     buttons.forEach(button => {
         button.addEventListener('click', () => {
-            buttons.forEach(button => button.innerHTML = 'copy link');
-            navigator.clipboard.writeText(`https://coredumped.info/blog/${button.dataset.post}`);
+            buttons.forEach(button => button.innerHTML = 'Copy Link');
+            navigator.clipboard.writeText(`https://coredumped.info/${button.dataset.post}`);
             button.innerHTML = 'copied';
         });
     });

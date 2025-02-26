@@ -6,19 +6,19 @@
 {% block content %}
 <div id="blog">
     <ol id="blog-posts">
-    {% for post in posts %}
+    {% for post, (title, date) in posts.items() | reverse %}
         <li class="blog-post-item">
-            {{ post }}
+            <a href="/blog/{{post}}">{{ title | safe }}</a>
+            <h4>{{ date }}</h4>
             <div class="blog-post-link">
-                <a href="/blog/{{post}}">view</a>
-                <span>-</span>
-                <button class="copy-link-button" data-post="{{post}}">copy</button>
+                <a href="/blog/{{post}}">Read Post</a>
+                <a class="copy-link-button" data-post="blog/{{post}}">Copy Link</a>
             </div>
         </li>
+        <br />
     {% endfor %}
     </ol>
-    <hr>
-    <p style="float: right; margin: 8px">blog posts: {{ posts | length }}</p>
+    <p style="float: right; margin: 8px">posts: {{ posts | length }}</p>
 </div>
 
 <script src="/static/js/blog.js"></script>

