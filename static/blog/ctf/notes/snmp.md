@@ -1,4 +1,5 @@
 # SNMP - Simple Network Manager Protocol
+An Internet Standard for managing network devices
 
 ## Protocol Details
 `SNMP` is used by a network controlling device (often a router or central server) to manage and monitor devices on the network.

@@ -42,6 +42,11 @@ async def load_post_title(path: str) -> str:
         return markdown(text=file.readline())
 
 
+async def load_post_title_and_subtitle(path: str) -> str:
+    with open(path) as file:
+        return markdown(text=file.readline() + file.readline())
+
+
 async def collect_day_posts() -> list[str]:
     posts = {}
     for file in os.listdir(BLOG_DAY_PATH):
@@ -60,29 +65,38 @@ async def load_day_post(date: int) -> str:
 
 
 async def collect_ctf_posts() -> list[str]:
-    posts = {}
+    groups = {}
     for parent, _, files in os.walk('static/blog/ctf'):
+        group = os.path.basename(parent)
+        
+        if group == 'ctf':
+            continue # TODO: this can probably be handled better
+        
+        groups[group] = {}
         for file in files:
-            path = os.path.join(parent, file)
             name = file.removesuffix('.md')
-            posts[name] = (await load_post_title(path), os.path.basename(parent))
-    return posts
+            group = os.path.basename(parent)
+            groups[group][name] = await load_post_title_and_subtitle(os.path.join(parent, file))
+    return groups
 
 
 async def load_ctf_htb_post(name: str) -> str:
-    if name not in await collect_ctf_posts():
+    groups = await collect_ctf_posts()
+    if name not in groups["htb"]:
         return '' # return empty string if it's an invalid name
     return await generate_markdown(os.path.join(BLOG_HTB_PATH, f"{name}.md"))
 
 
 async def load_ctf_notes_post(name: str) -> str:
-    if name not in await collect_ctf_posts():
+    groups = await collect_ctf_posts()
+    if name not in groups["notes"]:
         return '' # return empty string if it's an invalid name
     return await generate_markdown(os.path.join(BLOG_NOTES_PATH, f"{name}.md"))
 
 
 async def load_ctf_tools_post(name: str) -> str:
-    if name not in await collect_ctf_posts():
+    groups = await collect_ctf_posts()
+    if name not in groups["tools"]:
         return '' # return empty string if it's an invalid name
     return await generate_markdown(os.path.join(BLOG_TOOLS_PATH, f"{name}.md"))
 
@@ -96,31 +110,31 @@ async def index() -> Response:
 
 
 @blog.get("/ctfs")
-async def ctfs_index() -> Response: 
-    return render_template("ctfs.html", posts=await collect_ctf_posts(), page="c t f s")
+async def ctfs_index() -> Response:
+    return render_template("ctfs.html", groups=await collect_ctf_posts(), page="c t f s")
 
 
 # date based posts
-@blog.get("/<int:date>")
-async def post(date: int) -> Response:
+@blog.get("/date/<int:date>")
+async def get_blog_post(date: int) -> Response:
     human_readable_date = await human_readable_post_date(date)
     title_date = ' '.join(list(human_readable_date))
     return render_template("post.html", markdown=await load_day_post(date), date=human_readable_date, page=title_date)
 
 
 # hack the box writeups
-@blog.get("/ctfs/htb/<string:name>")
-async def htb(name: str) -> Response:
+@blog.get("/htb/<string:name>")
+async def get_htb_post(name: str) -> Response:
     return render_template("post.html", markdown=await load_ctf_htb_post(name), page="h t b")
 
 
 # general infosec notes
-@blog.get("/ctfs/notes/<string:name>")
-async def notes(name: str) -> Response:
+@blog.get("/notes/<string:name>")
+async def get_notes_post(name: str) -> Response:
     return render_template("post.html", markdown=await load_ctf_notes_post(name), page="n o t e s")
 
 
 # infosec tools (maybe general networking tools and stuff too at a later date)
-@blog.get("/ctfs/tools/<string:name>")
-async def tools(name: str) -> Response:
+@blog.get("/tools/<string:name>")
+async def get_tools_post(name: str) -> Response:
     return render_template("post.html", markdown=await load_ctf_tools_post(name), page='t o o l s')

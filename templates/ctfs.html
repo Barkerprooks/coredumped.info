@@ -5,24 +5,27 @@
 
 {% block content %}
 <div id="blog">
-    <ol id="blog-posts">
-    {% for post, (title, group) in posts.items() %}
-        <li class="blog-post-item">
-            <h1><a href="/blog/ctfs/{{group}}/{{post}}">{{ title | safe }}</a></h1>
-            {% if group == 'htb' %}
-            <h4>Hack the Box</h4>
-            {% else %}
-            <h4>{{ group | title }}</h4>
-            {% endif %}
-            <div class="blog-post-link">
-                <a href="/blog/ctfs/{{group}}/{{post}}">Read Post</a>
-                <a class="copy-link-button" data-post="blog/ctfs/{{group}}/{{post}}">Copy Link</a>
-            </div>
-        </li>
+    {% for group, posts in groups.items() %}
+        {% if group == 'htb' %}
+            <h2>Hack the Box Writeups</h2>
+        {% else %}
+            <h2>{{ group | title }}</h2>
+        {% endif %}
+        <ol id="blog-posts">
+        {% for post, title in posts.items() %}
+            <li class="blog-post-item">
+                <h1><a href="/blog/{{group}}/{{post}}">{{ title | safe }}</a></h1>
+                <div class="blog-post-link">
+                    <a class="copy-link-button" data-post="blog/{{group}}/{{post}}">Copy Link</a>
+                    <a href="/blog/{{group}}/{{post}}">Read Post</a>
+                </div>
+            </li>
+            <br />
+        {% endfor %}
+        </ol>
+        <p style="float: right; margin: 8px">#{{ posts | length }}</p>
         <br />
     {% endfor %}
-    </ol>
-    <p style="float: right; margin: 8px">posts: {{ posts | length }}</p>
 </div>
 
 <script src="/static/js/blog.js"></script>

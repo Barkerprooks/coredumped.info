@@ -1,4 +1,4 @@
-# UnderPass | HTB Writeup
+# UnderPass
 ### SNMP disclosure, Default authentication vulnerability and Mosh
 
 - `10.10.11.48`
