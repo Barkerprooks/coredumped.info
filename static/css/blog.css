@@ -28,7 +28,6 @@ h5 {
 
 .blog-post-link {
     display: flex;
-    justify-content: space-between;
 }
 
 .blog-post-link a {
@@ -48,5 +47,9 @@ h5 {
 @media screen and (max-width: 768px) {
     #blog {
         margin: 16px 0;
+    }
+
+    .blog-post-link {
+        justify-content: space-between;
     }
 }
