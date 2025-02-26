@@ -97,7 +97,7 @@ _~about 2 hours pass~_
 
 Okay, so i was messing around some more and this is why it's important to double check things. 
 
-`/daloradius/app/users/login.php` is for regular users. 
+`/daloradius/app/users/login.php` is for regular users.
 
 `/daloradius/app/operators/login.php` is for admins. 
 
@@ -117,7 +117,7 @@ When we go the users page, an `MD5` hash for our user is seemingly right here in
 
 Okay... Using those creds with `SSH` doesnt seem to do anything. not with `steve` or `svcmosh`. 
 
-maybe this is just something that will come in handy later? 
+Maybe this is just something that will come in handy later? 
 
 ...`version 2.2 beta / 03 Jul 2024` so maybe no SQLi like we see on `exploitdb`... 
 
@@ -143,15 +143,15 @@ The first thing to do is check if we straight up have root privs for anything, s
 
 I will save you the wasted time and effort I made while trying to crack this, but this is kinda sneaky. 
 
-the program `mosh` works by running `mosh-client` to interact with `SSH`, and then running a command through `SSH` to start `mosh-server` on the remote machine. 
+The program `mosh` works by running `mosh-client` to interact with `SSH`, and then running a command through `SSH` to start `mosh-server` on the remote machine. 
 
-the `mosh` command has an argument called `--server` which is _what I thought was_ a strict path, however it's perfectly valid to supply arguments as well. 
+The `mosh` command has an argument called `--server` which is _what I thought was_ a strict path, however it's perfectly valid to supply arguments as well. 
 
 Seeing this, there's nothing stopping us from supplying `sudo /usr/bin/mosh-server` for the path. 
 
     mosh --server="sudo /usr/bin/mosh-server" localhost
     
-drops us into a root shell. 
+Drops us into a root shell. 
 
 ![dalradius-root-shell](/static/media/ctf/htb-daloradius-root.png)
 

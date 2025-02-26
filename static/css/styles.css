@@ -7,7 +7,7 @@
 }
 
 a, button {
-    font-size: 14pt;
+    font-size: 12pt;
     text-decoration: none;
     transition: 0.2s;
     color: white;
@@ -41,11 +41,11 @@ body {
     padding: 16px 16px;
     color: #e7e2c9;
     font-family: Arial, sans-serif;
-    font-size: 14pt;
+    font-size: 12pt;
 }
 
 code {
-    font-size: 14pt;
+    font-size: 12pt;
     color: #dde1ff;
 }
 
