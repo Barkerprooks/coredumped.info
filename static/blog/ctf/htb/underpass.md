@@ -1,5 +1,5 @@
 # UnderPass
-### SNMP disclosure, Default authentication vulnerability and Mosh
+SNMP disclosure, Default authentication vulnerability and Mosh
 
 - `10.10.11.48`
 - Linux
