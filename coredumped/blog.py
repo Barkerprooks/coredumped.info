@@ -104,22 +104,23 @@ async def ctfs_index() -> Response:
 @blog.get("/<int:date>")
 async def post(date: int) -> Response:
     human_readable_date = await human_readable_post_date(date)
-    return render_template("post.html", markdown=await load_day_post(date), date=human_readable_date, page=human_readable_date)
+    title_date = ' '.join(list(human_readable_date))
+    return render_template("post.html", markdown=await load_day_post(date), date=human_readable_date, page=title_date)
 
 
 # hack the box writeups
 @blog.get("/ctfs/htb/<string:name>")
 async def htb(name: str) -> Response:
-    return render_template("post.html", markdown=await load_ctf_htb_post(name))
+    return render_template("post.html", markdown=await load_ctf_htb_post(name), page="h t b")
 
 
 # general infosec notes
 @blog.get("/ctfs/notes/<string:name>")
 async def notes(name: str) -> Response:
-    return render_template("post.html", markdown=await load_ctf_notes_post(name))
+    return render_template("post.html", markdown=await load_ctf_notes_post(name), page="n o t e s")
 
 
 # infosec tools (maybe general networking tools and stuff too at a later date)
 @blog.get("/ctfs/tools/<string:name>")
 async def tools(name: str) -> Response:
-    return render_template("post.html", markdown=await load_ctf_tools_post(name))
+    return render_template("post.html", markdown=await load_ctf_tools_post(name), page='t o o l s')
