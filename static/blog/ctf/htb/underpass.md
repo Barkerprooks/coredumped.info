@@ -7,7 +7,7 @@
 
 It's been a minute for me, lets take a crack at it! 
 
-Start with [NMap](/blog/ctfs/tools/nmap) of course.
+Start with [NMap](/blog/tools/nmap) of course.
 
     nmap -sC -sV -vv 10.10.11.48
 
@@ -56,9 +56,9 @@ Oh! looks like we have `SNMP` related things?
     1812/udp open|filtered radius  no-response
     1813/udp open|filtered radacct no-response
 
-Okay, down the [SNMP](/blog/ctfs/notes/snmp) rabbit hole.
+Okay, down the [SNMP](/blog/notes/snmp) rabbit hole.
 
-found a useful command called [snmpwalk](/blog/ctfs/tools/snmpwalk) which dumps public `SNMP` records. 
+found a useful command called [snmpwalk](/blog/tools/snmpwalk) which dumps public `SNMP` records. 
 
 Apparently version `3` of `SNMP` introduces stronger authentication so its always worthwhile to try the weaker versions of the protocol first.
 
