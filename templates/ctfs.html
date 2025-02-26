@@ -5,7 +5,7 @@
 
 {% block content %}
 <div id="blog">
-    {% for group, posts in groups.items() %}
+    {% for group, posts in groups.items() | reverse %}
         {% if group == 'htb' %}
             <h2>Hack the Box Writeups</h2>
         {% else %}

@@ -8,11 +8,11 @@
     <ol id="blog-posts">
     {% for post, (title, date) in posts.items() | reverse %}
         <li class="blog-post-item">
-            <a href="/blog/{{post}}">{{ title | safe }}</a>
+            <a href="/blog/date/{{post}}">{{ title | safe }}</a>
             <h4>{{ date }}</h4>
             <div class="blog-post-link">
                 <a class="copy-link-button" data-post="blog/{{post}}">Copy Link</a>
-                <a href="/blog/{{post}}">Read Post</a>
+                <a href="/blog/date/{{post}}">Read Post</a>
             </div>
         </li>
         <br />
