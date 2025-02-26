@@ -28,7 +28,7 @@ Looks like we get responses from the `SSH` port `22` and `HTTP` on port `80`.
     Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 
-Visiting the index page for the web server at `http://10.10.11.48/` yields the default apache page
+Visiting the index page for the web server at `http://10.10.11.48/` yields the default apache page.
 
 We can try to brute force web directories with and virtual hosts with `gobuster`.
 
@@ -62,14 +62,14 @@ found a useful command called [snmpwalk](/blog/tools/snmpwalk) which dumps publi
 
 Apparently version `3` of `SNMP` introduces stronger authentication so its always worthwhile to try the weaker versions of the protocol first.
 
-Just for future reference. `SNMP` version `2c` and below uses something like a password to protect the data called a `community string` 
+Just for future reference. `SNMP` version `2c` and below uses something like a password to protect the data called a `community string`.
 
 Don't ask me why `2c` is called `2c` instead of `2`. I didn't look into it.
 
 For publicly available data, usually that password is something like `public`. According to
 some older sources, it looks like `private` is also a common default community string. 
 
-Running this command will dump all the public records using the `2c` version of the protocol
+Running this command will dump all the public records using the `2c` version of the protocol.
 
     snmpwalk -v 2c -c public underpass.htb
 
@@ -83,51 +83,47 @@ Looks like we found a username, super useful. This looks like something that cou
     SNMPv2-MIB::sysLocation.0 = STRING: Nevada, U.S.A. but not Vegas
 
 
-We also found what looks like the name of a service. `daloradius`
+We also found what looks like the name of a service. `daloradius`. 
 
-Doing a quick search online, [that's exactly what it is.](https://github.com/lirantal/daloradius.git) 
+Doing a quick search online, [that's exactly what it is.](https://github.com/lirantal/daloradius.git).  
 
-Found `/daloradius/app/users/login.php` which will allow me to log into the application. 
+Found `/daloradius/app/users/login.php` which will allow me to log into the application.  
 
-Maybe from here we can gather the version of the webserver and look for any CVEs.
+Maybe from here we can gather the version of the webserver and look for any CVEs. 
 
-Tried all the default credentials in the README but no luck...
+Tried all the default credentials in the README but no luck... 
 
 _~about 2 hours pass~_
 
 Okay, so i was messing around some more and this is why it's important to double check things. 
 
-`daloradius/app/users/login.php` 
+`/daloradius/app/users/login.php` is for regular users. 
 
-is for regular users. 
-
-`daloradius/app/operators/login.php` 
-
-is for admins. 
+`/daloradius/app/operators/login.php` is for admins. 
 
 ![daloradius-admin](/static/media/ctf/htb-daloradius.png)
 
 Anyway... It's important to reset the default password after installing one of these dashboards. Otherwise _anyone_ could just read the GitHub documentation and log in. 
 
-I found one user named `svcMosh` in the users list. The word `Mosh` leads me to believe that the program `Mosh` is involved somehow, but we'll have to see.
+I found one user named `svcMosh` in the users list. The word `Mosh` leads me to believe that the program `Mosh` is involved somehow, but we'll have to see. 
 
-When we go the users page, an `MD5` hash for our user is seemingly right here in the UI.
+When we go the users page, an `MD5` hash for our user is seemingly right here in the UI. 
 
-`412DD4...` is the first 6 characters of the hash. You can see for yourself what the rest of the chracters are. We're going to save this into `md5sum.txt`
+`412DD4...` is the first 6 characters of the hash. You can see for yourself what the rest of the chracters are. We're going to save this into `md5sum.txt`. 
 
     john --wordlist=./rockyou.txt --format=Raw-MD5 ./md5sum.txt
 
-[John the Ripper](https://www.openwall.com/john/) will make short work of this hash with the `rockyou.txt` wordlist.
+[John the Ripper](https://www.openwall.com/john/) will make short work of this hash with the `rockyou.txt` wordlist. 
 
-Okay... Using those creds with `SSH` doesnt seem to do anything. not with `steve` or `svcmosh`
+Okay... Using those creds with `SSH` doesnt seem to do anything. not with `steve` or `svcmosh`. 
 
-maybe this is just something that will come in handy later?
+maybe this is just something that will come in handy later? 
 
-...`version 2.2 beta / 03 Jul 2024` so maybe no SQLi like we see on `exploitdb`...
+...`version 2.2 beta / 03 Jul 2024` so maybe no SQLi like we see on `exploitdb`... 
 
 _~about 2 more hours pass~_
 
-I WAS BEING DUMB. CASE MATTERS
+I WAS BEING DUMB. CASE MATTERS! 
 
 `ssh svcMosh@underpass.htb` with the cracked hash gives us a user on the box. 
 
@@ -135,7 +131,7 @@ I WAS BEING DUMB. CASE MATTERS
 
 Yay!
 
-The first thing to do is check if we straight up have root privs for anything, so `sudo -l` which gives us the interesting path of `/usr/bin/mosh-server`
+The first thing to do is check if we straight up have root privs for anything, so `sudo -l` which gives us the interesting path of `/usr/bin/mosh-server`. 
 
     Matching Defaults entries for svcMosh on localhost:
     env_reset, mail_badpass,
@@ -145,17 +141,17 @@ The first thing to do is check if we straight up have root privs for anything, s
     User svcMosh may run the following commands on localhost:
         (ALL) NOPASSWD: /usr/bin/mosh-server
 
-I will save you the wasted time and effort I made while trying to crack this, but this is kinda sneaky.
+I will save you the wasted time and effort I made while trying to crack this, but this is kinda sneaky. 
 
-the program `mosh` works by running `mosh-client` to interact with `SSH`, and then running a command through `SSH` to start `mosh-server` on the remote machine.
+the program `mosh` works by running `mosh-client` to interact with `SSH`, and then running a command through `SSH` to start `mosh-server` on the remote machine. 
 
-the `mosh` command has an argument called `--server` which is _what I thought was_ a strict path, however it's perfectly valid to supply arguments as well.
+the `mosh` command has an argument called `--server` which is _what I thought was_ a strict path, however it's perfectly valid to supply arguments as well. 
 
-Seeing this, there's nothing stopping us from supplying `sudo /usr/bin/mosh-server` for the path.
+Seeing this, there's nothing stopping us from supplying `sudo /usr/bin/mosh-server` for the path. 
 
     mosh --server="sudo /usr/bin/mosh-server" localhost
     
-drops us into a root shell.
+drops us into a root shell. 
 
 ![dalradius-root-shell](/static/media/ctf/htb-daloradius-root.png)
 
