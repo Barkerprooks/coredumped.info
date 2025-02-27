@@ -49,22 +49,12 @@ Here's the next few ports
     593/tcp  open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0
     636/tcp  open  ssl/ldap      syn-ack Microsoft Windows Active Directory LDAP (Domain: sequel.htb0., Site: Default-First-Site-Name)
 
-This could be interesting. An exposed MSSQL server. 
+This could be interesting... An exposed MSSQL server? 
 
     1433/tcp open  ms-sql-s      syn-ack Microsoft SQL Server 2019 15.00.2000.00; RTM
-    |_ms-sql-info: ERROR: Script execution failed (use -d to debug)
-    |_ms-sql-ntlm-info: ERROR: Script execution failed (use -d to debug)
     | ssl-cert: Subject: commonName=SSL_Self_Signed_Fallback
-    | Issuer: commonName=SSL_Self_Signed_Fallback
 
-And MicroSoft's HTTP API
-
-    5985/tcp open  http          syn-ack Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
-    |_http-title: Not Found
-    |_http-server-header: Microsoft-HTTPAPI/2.0
-    Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
-
-So... given that we started with creds. Lets just try enumerating the `SMB` shares?
+So... given that we started with creds. Lets just try enumerating the `SMB` shares first?
 
     smbclient -U rose -L //DC01.sequel.htb/
     Password for [WORKGROUP\rose]: <enter password>
@@ -81,4 +71,30 @@ Cool. Here are the available shares.
     SYSVOL          Disk      Logon server share
     Users           Disk
 
-We'll work our way up.
+Logging into users, we have a pretty standard user folder layout for Windows machines.
+You can recursively grab the files with [smbclient](/blog/tools/smbclient) using this
+snippit. 
+
+    mask ""
+    recurse on
+    prompt off
+    mget *
+
+If we download all the files and look through them, there doesn't seem to by any red flags or obvious files. It looks like a fresh install. 
+
+Lets look at `SYSVOL`. 
+
+    smbclient -U rose //DC01.sequel.htb/sysvol
+    Password for [WORKGROUP\rose]: <enter password> 
+
+We are greeted with one folder called `sequel.htb`. There are three more folders inside it.  
+
+    smb: \sequel.htb\> dir
+    .                                   D        0  Sat Jun  8 11:46:03 2024
+    ..                                  D        0  Sat Jun  8 11:46:03 2024
+    DfsrPrivate                      DHSr        0  Sat Jun  8 11:46:03 2024
+    Policies                            D        0  Sat Jun  8 11:39:50 2024
+    scripts                             D        0  Sat Jun  8 11:39:46 2024
+
+                6367231 blocks of size 4096. 920683 blocks available
+
