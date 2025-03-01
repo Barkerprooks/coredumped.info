@@ -18,9 +18,9 @@ When scanning Windows machines we need the `-Pn` flag due to Windows not respond
 
     nmap -Pn -sC -sV -vv 10.10.11.51
 
-Wow it looks like there's a lot going on. Its possibly a [domain controller](/blog/notes/dc).
+Wow it looks like there's a lot going on. Its possibly a domain controller.
 
-Here's the first few ports before NSE starts doing its thing. 
+Here's the first few ports before `NSE` starts doing its thing. 
 
 Notably we have a `DNS` server. Also the usual `SMB` ports are open.
 
@@ -31,7 +31,7 @@ Notably we have a `DNS` server. Also the usual `SMB` ports are open.
     139/tcp  open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn
     389/tcp  open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: sequel.htb0., Site: Default-First-Site-Name)
 
-[LDAP](/blog/notes/ldap) seems to be showing us some domain names. We can go ahead and add those to `/etc/hosts`. 
+`LDAP` seems to be showing us some domain names. We can go ahead and add those to `/etc/hosts`. 
 
     |_ssl-date: 2025-02-26T22:08:51+00:00; -1s from scanner time.
     | ssl-cert: Subject: commonName=DC01.sequel.htb
@@ -72,7 +72,7 @@ Cool. Here are the available shares.
     Users           Disk
 
 Logging into users, we have a pretty standard user folder layout for Windows machines.
-You can recursively grab the files with [smbclient](/blog/tools/smbclient) using this
+You can recursively grab the files with `smbclient` using this
 snippit. 
 
     mask ""
