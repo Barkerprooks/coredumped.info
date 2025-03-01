@@ -49,11 +49,12 @@ async def load_post_title_and_subtitle(path: str) -> str:
 
 async def collect_day_posts() -> list[str]:
     posts = {}
-    for file in os.listdir(BLOG_DAY_PATH):
-        name = file.removesuffix('.md')
-        date = await human_readable_post_date(name)
-        path = os.path.join(BLOG_DAY_PATH, file)
-        posts[name] = (await load_post_title(path), date)
+    if os.path.isdir(BLOG_DAY_PATH):
+        for file in os.listdir(BLOG_DAY_PATH):
+            name = file.removesuffix('.md')
+            date = await human_readable_post_date(name)
+            path = os.path.join(BLOG_DAY_PATH, file)
+            posts[name] = (await load_post_title(path), date)
     return posts
 
 
