@@ -107,35 +107,34 @@ blog = Blueprint("blog", __name__, url_prefix="/blog")
 
 @blog.get("/")
 async def index() -> Response:
-    return render_template("blog.html", posts=await collect_day_posts(), page="b l o g")
+    return render_template("blog.html", posts=await collect_day_posts(), page="blog")
 
 
 @blog.get("/ctfs")
 async def ctfs_index() -> Response:
-    return render_template("ctfs.html", groups=await collect_ctf_posts(), page="c t f s")
+    return render_template("ctfs.html", groups=await collect_ctf_posts(), page="ctfs")
 
 
 # date based posts
 @blog.get("/date/<int:date>")
 async def get_blog_post(date: int) -> Response:
     human_readable_date = await human_readable_post_date(date)
-    title_date = ' '.join(list(human_readable_date))
-    return render_template("post.html", markdown=await load_day_post(date), date=human_readable_date, page=title_date)
+    return render_template("post.html", markdown=await load_day_post(date), date=human_readable_date, page=human_readable_date)
 
 
 # hack the box writeups
 @blog.get("/htb/<string:name>")
 async def get_htb_post(name: str) -> Response:
-    return render_template("post.html", markdown=await load_ctf_htb_post(name), page="h t b")
+    return render_template("post.html", markdown=await load_ctf_htb_post(name), page="htb")
 
 
 # general infosec notes
 @blog.get("/notes/<string:name>")
 async def get_notes_post(name: str) -> Response:
-    return render_template("post.html", markdown=await load_ctf_notes_post(name), page="n o t e s")
+    return render_template("post.html", markdown=await load_ctf_notes_post(name), page="notes")
 
 
 # infosec tools (maybe general networking tools and stuff too at a later date)
 @blog.get("/tools/<string:name>")
 async def get_tools_post(name: str) -> Response:
-    return render_template("post.html", markdown=await load_ctf_tools_post(name), page='t o o l s')
+    return render_template("post.html", markdown=await load_ctf_tools_post(name), page='tools')
