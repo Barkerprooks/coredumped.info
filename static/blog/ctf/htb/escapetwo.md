@@ -82,19 +82,47 @@ snippit.
 
 If we download all the files and look through them, there doesn't seem to by any red flags or obvious files. It looks like a fresh install. 
 
-Lets look at `SYSVOL`. 
+Lets look at `Accounting Department`. 
 
     smbclient -U rose //DC01.sequel.htb/sysvol
     Password for [WORKGROUP\rose]: <enter password> 
 
-We are greeted with one folder called `sequel.htb`. There are three more folders inside it.  
+If we look in `Accounting Department`, we can see two interesting microsoft excel files. 
 
-    smb: \sequel.htb\> dir
-    .                                   D        0  Sat Jun  8 11:46:03 2024
-    ..                                  D        0  Sat Jun  8 11:46:03 2024
-    DfsrPrivate                      DHSr        0  Sat Jun  8 11:46:03 2024
-    Policies                            D        0  Sat Jun  8 11:39:50 2024
-    scripts                             D        0  Sat Jun  8 11:39:46 2024
+    smb: \> ls
+    .                                   D        0  Sun Jun  9 05:52:21 2024
+    ..                                  D        0  Sun Jun  9 05:52:21 2024
+    accounting_2024.xlsx                A    10217  Sun Jun  9 05:14:49 2024
+    accounts.xlsx                       A     6780  Sun Jun  9 05:52:07 2024
 
-                6367231 blocks of size 4096. 920683 blocks available
+                6367231 blocks of size 4096. 900477 blocks available
 
+For some reason, they came to me corrupted. I went ahead and reset the machine just in case. 
+
+Looks like they're still coming to me corrupted. I guess I will need to extract the data
+by force.
+
+An excel document is just a zip file with some metadata stored in various folders. In its
+current iteration, it stores text (strings) in a file called `sharedStrings.xml`. 
+
+    Archive:  accounts.xlsx
+    file #1:  bad zipfile offset (local header sig):  0
+        inflating: xl/workbook.xml
+        inflating: xl/theme/theme1.xml
+        inflating: xl/styles.xml
+        inflating: xl/worksheets/_rels/sheet1.xml.rels
+        inflating: xl/worksheets/sheet1.xml
+        inflating: xl/sharedStrings.xml
+        inflating: _rels/.rels
+        inflating: docProps/core.xml
+        inflating: docProps/app.xml
+        inflating: docProps/custom.xml
+        inflating: [Content_Types].xml
+
+When we read that file after extracting `accounts.xlsx`, we see it contains a list of
+usernames and passwords. Nice. 
+
+It looks like one of the usernames is `sa@sequel.htb` with the password `MSSQL[redacted]` 
+
+Which is a pretty heavy handed hint that our next location of interest is the open MSSQL server
+that we spied earlier.
