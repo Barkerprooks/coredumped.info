@@ -30,7 +30,7 @@ Looks like we get responses from the `SSH` port `22` and `HTTP` on port `80`.
 
 Visiting the index page for the web server at `http://10.10.11.48/` yields the default apache page.
 
-We can try to brute force web directories with and virtual hosts with `gobuster`.
+We can try to brute force web directories and virtual hosts with `gobuster`.
 
 However, it doesn't seem like there's any common routes on this web server... 
 
