@@ -10,10 +10,6 @@ BLOG_TOOLS_PATH = "static/blog/ctf/tools"
 
 
 async def generate_markdown(path: str) -> str:
-    """
-    creates a markdown file with syntax highlighting supported
-    """
-    
     if not os.path.isfile(path):
         return "<center>error generating markdown :(</centrer>"
     

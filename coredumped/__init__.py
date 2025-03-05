@@ -1,29 +1,24 @@
-from markdown import markdownFromFile
 from random import choice
 
-import os.path
-import json
-
-
-async def get_random_banner() -> str:
-    """
-    loads a JSON file, which is just a list of strings, and randomly selects a string
-    """
-
-    with open("static/banners.json") as file:
-        return choice(json.load(file))
-    
-
-async def generate_markdown(path: str) -> str:
-    """
-    creates a markdown file with syntax highlighting supported
-    """
-    
-    if not os.path.isfile(path):
-        return "<center>error generating markdown :(</centrer>"
-    
-    return markdownFromFile(
-        path, 
-        extensions=["codehilite"],
-        extension_configs={ "codehilite": { "linenums": True } }
-    )
+async def get_banner() -> str:
+    return choice([
+        "Hello world!",
+        "Howdy there partner!",
+        "Come here often?",
+        "There's not much to see. Thanks for taking a look anyway!",
+        "Well... look who we've got right here!",
+        "100% LMM Free!",
+        "Gone hackin'",
+        "Gone fishin'",
+        "Trans rights are human rights!",
+        "I didn't even have to use my AK...",
+        "You (client) request, I (server) respond. We are not the same.",
+        "Hack the planet!",
+        "Since 1997",
+        "Hell yeah dude.",
+        "I just need a cool jacket...",
+        "In my cube era...",
+        "Cubing it up!",
+        "Free Palestine!",
+        "Where did you come from?",
+    ])
