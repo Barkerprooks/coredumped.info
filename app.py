@@ -13,5 +13,5 @@ app.register_blueprint(blog)
 
 @app.get("/")
 async def index():
-    return render_template("index.html", banner=await get_random_banner(), page="i n d e x")
+    return render_template("index.html", banner=await get_random_banner(), page="index")
     

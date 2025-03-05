@@ -7,7 +7,7 @@ SNMP disclosure, Default authentication vulnerability and Mosh
 
 It's been a minute for me, lets take a crack at it! 
 
-Start with [NMap](/blog/tools/nmap) of course.
+Start with `nmap` of course.
 
     nmap -sC -sV -vv 10.10.11.48
 
@@ -30,7 +30,7 @@ Looks like we get responses from the `SSH` port `22` and `HTTP` on port `80`.
 
 Visiting the index page for the web server at `http://10.10.11.48/` yields the default apache page.
 
-We can try to brute force web directories with and virtual hosts with `gobuster`.
+We can try to brute force web directories and virtual hosts with `gobuster`.
 
 However, it doesn't seem like there's any common routes on this web server... 
 
@@ -56,9 +56,9 @@ Oh! looks like we have `SNMP` related things?
     1812/udp open|filtered radius  no-response
     1813/udp open|filtered radacct no-response
 
-Okay, down the [SNMP](/blog/notes/snmp) rabbit hole.
+Okay, down the `SNMP` rabbit hole.
 
-found a useful command called [snmpwalk](/blog/tools/snmpwalk) which dumps public `SNMP` records. 
+found a useful command called `snmpwalk` which dumps public `SNMP` records. 
 
 Apparently version `3` of `SNMP` introduces stronger authentication so its always worthwhile to try the weaker versions of the protocol first.
 
