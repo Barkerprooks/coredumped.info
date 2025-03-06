@@ -122,7 +122,20 @@ current iteration, it stores text (strings) in a file called `sharedStrings.xml`
 When we read that file after extracting `accounts.xlsx`, we see it contains a list of
 usernames and passwords. Nice. 
 
-It looks like one of the usernames is `sa@sequel.htb` with the password `MSSQL[redacted]` 
+It looks like one of the usernames is `sa@sequel.htb` with the password `MSSQL...` 
 
-Which is a pretty heavy handed hint that our next location of interest is the open MSSQL server
+(I'm redacting the rest of the password so you can figure it out for yourself)
+
+The password is a pretty heavy handed hint that our next location of interest is the open MSSQL server
 that we spied earlier.
+
+Using the client that comes with MSSQL, we can connect to and query the database as the admin 
+
+    sqlcmd -C -S dc01.sequel.htb -U sa -P MSSQL...
+
+We need to use `-C` to disable certificate checking (it's self signed) 
+
+    1> select name from sys.databases;
+    2> go
+
+Looking at the tables we can only see the default ones.
