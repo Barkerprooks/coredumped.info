@@ -289,4 +289,7 @@ Awesome! We can log in!
 
 Noticing a new `ryan` folder in the share, we can find the `user.txt`
 
-TO BE CONTINUED...
+## Privilege Escalation
+
+At this point it would be wise to use a proper shell now that we have new credentials. A
+good one for linux based pen-testers is [Evil WinRM](https://github.com/Hackplayers/evil-winrm).
