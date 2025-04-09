@@ -1,0 +1,1 @@
+from coredumped import app
