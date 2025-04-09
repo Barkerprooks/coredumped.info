@@ -1,1 +1,1 @@
-from coredumped import app
+from coredumped.app import app
