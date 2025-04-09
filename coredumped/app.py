@@ -14,10 +14,11 @@ async def index():
     return render_template("index.html", banner=await get_banner(), page="home")
 
 
-@app.get("/tools/udptun")
+@app.get("/tools/udptun.py")
 async def udptun_content():
     return redirect("https://raw.githubusercontent.com/Barkerprooks/udp-tunnel/main/udptun.py")
 
-@app.get("/tools/udptun-min")
-async def udptun_content():
+
+@app.get("/tools/udptun.min.py")
+async def udptun_min_content():
     return redirect("https://raw.githubusercontent.com/Barkerprooks/udp-tunnel/main/udptun.min.py")
