@@ -3,10 +3,10 @@ from markdown import markdown
 import os
 
 
-BLOG_DAY_PATH = "static/blog/day"
-BLOG_HTB_PATH = "static/blog/ctf/htb"
-BLOG_NOTES_PATH = "static/blog/ctf/notes"
-BLOG_TOOLS_PATH = "static/blog/ctf/tools"
+BLOG_DAY_PATH = "coredumped/static/blog/day"
+BLOG_HTB_PATH = "coredumped/static/blog/ctf/htb"
+BLOG_NOTES_PATH = "coredumped/static/blog/ctf/notes"
+BLOG_TOOLS_PATH = "coredumped/static/blog/ctf/tools"
 
 
 async def generate_markdown(path: str) -> str:
@@ -63,7 +63,7 @@ async def load_day_post(date: int) -> str:
 
 async def collect_ctf_posts() -> list[str]:
     groups = {}
-    for parent, _, files in os.walk('static/blog/ctf'):
+    for parent, _, files in os.walk('coredumped/static/blog/ctf'):
         group = os.path.basename(parent)
         
         if group == 'ctf':
