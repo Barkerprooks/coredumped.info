@@ -17,3 +17,7 @@ async def index():
 @app.get("/tools/udptun.py")
 async def udptun_content():
     return redirect("https://raw.githubusercontent.com/Barkerprooks/udp-tunnel/main/udptun.py")
+
+@app.get("/tools/udptun.min.py")
+async def udptun_content():
+    return redirect("https://raw.githubusercontent.com/Barkerprooks/udp-tunnel/main/udptun.min.py")
