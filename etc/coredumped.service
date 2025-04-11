@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=parker
 WorkingDirectory=$PATH
-ExecStart=$PATH/env/bin/uwsgi --http 127.0.0.1:$PORT --master -p $THREADS -w $PROJECT.wsgi:app
+ExecStart=$PATH/env/bin/uwsgi --http 127.0.0.1:$PORT --master -p $THREADS -w coredumped.wsgi:app
 Restart=on-failure
 
 [Install]
