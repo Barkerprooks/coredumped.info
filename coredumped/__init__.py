@@ -21,4 +21,5 @@ async def get_banner() -> str:
         "Cubing it up!",
         "Free Palestine!",
         "Where did you come from?",
+        "23d1294e2a78211e37f003f8433d4322"
     ])
