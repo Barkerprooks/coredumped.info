@@ -84,20 +84,6 @@ async def load_ctf_htb_post(name: str) -> str:
     return await generate_markdown(os.path.join(BLOG_HTB_PATH, f"{name}.md"))
 
 
-async def load_ctf_notes_post(name: str) -> str:
-    groups = await collect_ctf_posts()
-    if name not in groups["notes"]:
-        return '' # return empty string if it's an invalid name
-    return await generate_markdown(os.path.join(BLOG_NOTES_PATH, f"{name}.md"))
-
-
-async def load_ctf_tools_post(name: str) -> str:
-    groups = await collect_ctf_posts()
-    if name not in groups["tools"]:
-        return '' # return empty string if it's an invalid name
-    return await generate_markdown(os.path.join(BLOG_TOOLS_PATH, f"{name}.md"))
-
-
 blog = Blueprint("blog", __name__, url_prefix="/blog")
 
 
@@ -122,15 +108,3 @@ async def get_blog_post(date: int) -> Response:
 @blog.get("/htb/<string:name>")
 async def get_htb_post(name: str) -> Response:
     return render_template("post.html", markdown=await load_ctf_htb_post(name), page="htb")
-
-
-# general infosec notes
-@blog.get("/notes/<string:name>")
-async def get_notes_post(name: str) -> Response:
-    return render_template("post.html", markdown=await load_ctf_notes_post(name), page="notes")
-
-
-# infosec tools (maybe general networking tools and stuff too at a later date)
-@blog.get("/tools/<string:name>")
-async def get_tools_post(name: str) -> Response:
-    return render_template("post.html", markdown=await load_ctf_tools_post(name), page='tools')

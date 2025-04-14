@@ -1,21 +1,24 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/static/css/styles.css" />
-        {% block styles %}{% endblock %}
-        <title>coredumped - {{ page }}</title>
-    </head>
-    <body>
-        <nav>
-            <a href="/">coredumped.info</a>
-            <div>
-                <!-- disable blog link until I have interesting thoughts -->
-                <s><a>&#x03bc;Blog</a></s>
-                <a href="/blog/ctfs">CTFs</a>
-            </div>
-        </nav>
-        {% block content %}{% endblock %}
-    </body>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    {% block styles %}{% endblock %}
+    <title>coredumped - {{ page }}</title>
+</head>
+
+<body>
+    <nav>
+        <a href="/">coredumped.info</a>
+        <div>
+            <!-- disable blog link until I have interesting thoughts -->
+            <!-- <s><a>&#x03bc;Blog</a></s> -->
+            <a href="/blog/ctfs">CTFs</a>
+        </div>
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+
 </html>

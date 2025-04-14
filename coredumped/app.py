@@ -1,7 +1,6 @@
 from flask import Flask, render_template, redirect
 
 
-from coredumped import get_banner
 from coredumped.blog import blog
 
 
@@ -11,20 +10,21 @@ app.register_blueprint(blog)
 
 @app.get("/")
 async def index():
-    return render_template("index.html", banner=await get_banner(), page="home")
+    return render_template("index.html", banner="Here for when your brain has a segmentation fault.", page="home")
 
 
 # >>> this is so stupid lmao, idc...
-
 # main versions
 @app.get("/utils/udptun.py")
 @app.get("/utils/udptun-v1.0.1.py")
 async def udptun_main():
     return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.0.1/udptun.py")
 
+
 @app.get("/utils/udptun-v1.0.0.py")
 async def udptun_v1_0_0():
     return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.0.0/udptun.py")
+
 
 # minified versions
 @app.get("/utils/udptun.min.py")

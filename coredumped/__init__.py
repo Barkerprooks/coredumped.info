@@ -11,7 +11,6 @@ async def get_banner() -> str:
         "Gone hackin'",
         "Gone fishin'",
         "Trans rights are human rights!",
-        "I didn't even have to use my AK...",
         "You (client) request, I (server) respond. We are not the same.",
         "Hack the planet!",
         "Since 1997",
@@ -21,5 +20,6 @@ async def get_banner() -> str:
         "Cubing it up!",
         "Free Palestine!",
         "Where did you come from?",
-        "23d1294e2a78211e37f003f8433d4322"
+        "23d1294e2a78211e37f003f8433d4322",
+        "Cringe!"
     ])
