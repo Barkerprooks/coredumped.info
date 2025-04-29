@@ -32,7 +32,7 @@ async def udptun_v1_0_0():
 @app.get("/utils/udptun.min.py")
 @app.get("/utils/udptun-v1.1.0.min.py")
 async def udptun_min_main():
-    return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.0.1/udptun.min.py")
+    return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.1.0/udptun.min.py")
 
 @app.get("/utils/udptun-v1.0.1.min.py")
 async def udptun_min_v1_0_1():
