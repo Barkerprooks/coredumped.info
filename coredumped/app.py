@@ -10,7 +10,7 @@ app.register_blueprint(blog)
 
 @app.get("/")
 async def index():
-    return render_template("index.html", banner="Here for when your brain has a segmentation fault.", page="home")
+    return render_template("index.html", banner="Brain had a segmentation fault", page="home")
 
 
 # >>> this is so stupid lmao, idc...
