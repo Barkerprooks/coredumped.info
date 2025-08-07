@@ -1,47 +1,43 @@
-from flask import Flask, render_template, redirect
-
+from flask import Flask, request, render_template, redirect
+from os import urandom
 
 from coredumped.blog import blog
 
+GITHUB_URL: str = "https://github.com/Barkerprooks/udp-tunnel/releases/download"
 
-app = Flask(__name__)
+UDPTUN_VERSION_LIST: list[str] = ["1.1.1", "1.1.0", "1.0.1", "1.0.0"]
+UDPTUN_MIN_VERSION_LIST: list[str] = ["1.1.1", "1.1.0", "1.0.1"]
+
+app: Flask = Flask(__name__)
 app.register_blueprint(blog)
 
 
 @app.get("/")
 async def index():
-    return render_template("index.html", banner="Brain had a segmentation fault", page="home")
+    """The first page everyone sees"""
+    return render_template("index.html", banner="Segfault City", page="home")
 
 
-# >>> this is so stupid lmao, idc...
-# main versions
-@app.get("/utils/udptun.py")
-@app.get("/utils/udptun-v1.1.1.py")
-async def udptun_main():
-    return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.1.1/udptun.py")
+@app.get("/download/udptun")
+async def udptun():
+    """Easy interface to download udptun releases from github"""
 
-@app.get("/utils/udptun-v1.1.0.py")
-async def udptun_v1_1_0():
-    return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.1.0/udptun.py")
+    version: str = request.args.get("v", UDPTUN_VERSION_LIST[0])
+    minified: bool = request.args.get("min", False, type=bool)
+    versions: list[str] = UDPTUN_VERSION_LIST
+    file: str = "udptun.py"
 
-@app.get("/utils/udptun-v1.0.1.py")
-async def udptun_v1_0_1():
-    return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.0.1/udptun.py")
+    if minified:
+        versions = UDPTUN_MIN_VERSION_LIST
+        file = "udptun.min.py"
 
-@app.get("/utils/udptun-v1.0.0.py")
-async def udptun_v1_0_0():
-    return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.0.0/udptun.py")
+    if version not in versions:
+        return render_template("404.html", message="Version not found")
 
-# minified versions
-@app.get("/utils/udptun.min.py")
-@app.get("/utils/udptun-v1.1.1.min.py")
-async def udptun_min_main():
-    return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.1.1/udptun.min.py")
+    return redirect(f"{GITHUB_URL}/v{version}/{file}")
 
-@app.get("/utils/udptun-v1.1.0.min.py")
-async def udptun_min_v1_1_0():
-    return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.1.0/udptun.min.py")
 
-@app.get("/utils/udptun-v1.0.1.min.py")
-async def udptun_min_v1_0_1():
-    return redirect("https://github.com/Barkerprooks/udp-tunnel/releases/download/v1.0.1/udptun.min.py")
+@app.get("/api/coinflip")
+def coin():
+    """A 'true' random coin flip"""
+    return {"result": urandom(1)[0] & 1}
