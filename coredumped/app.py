@@ -1,7 +1,8 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, Response, request, render_template, redirect
 from os import urandom
 
 from coredumped.blog import blog
+
 
 GITHUB_URL: str = "https://github.com/Barkerprooks/udp-tunnel/releases/download"
 
@@ -16,6 +17,11 @@ app.register_blueprint(blog)
 async def index():
     """The first page everyone sees"""
     return render_template("index.html", banner="Segfault City", page="home")
+
+
+@app.get('/.env')
+async def fuckoff():
+    return Response('AWS_ACCESS_KEY_ID=3A7AD1CK\nGO_FUCK=YOURSELF', content_type="text/plain")
 
 
 @app.get("/download/udptun")
